@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="dk">
+<head>
+    <meta charset="UTF-8">
+    <title>Tags</title>
+</head>
+<body>
+<h1 th:text="${attraction.name} + ' Tags'"></h1>
+
+<ul>
+    <li th:each="tag : ${attraction.tags}" th:text="${tag}"></li>
+</ul>
+</body>
+</html>

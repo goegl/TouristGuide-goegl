@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import tourism.model.TouristAttraction;
 import tourism.service.TouristService;
 
 @Controller
@@ -26,9 +27,11 @@ private final TouristService service;
         model.addAttribute("attraction", service.findByName(name));
         return "findattractionbyname";
     }
+
     @GetMapping("/{name}/tags")
     public String showTags(@PathVariable String name, Model model){
-        model.addAttribute("attraction", service.findByName(name));
+        TouristAttraction attraction = service.findByName(name);
+        model.addAttribute("attraction", attraction);
         return "tags";
     }
 }
