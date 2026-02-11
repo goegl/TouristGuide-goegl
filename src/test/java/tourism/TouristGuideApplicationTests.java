@@ -1,4 +1,4 @@
-package tourism.touristguide;
+package tourism;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

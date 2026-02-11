@@ -1,4 +1,4 @@
-package tourism.touristguide.model;
+package tourism.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,11 @@ public class TouristAttraction {
     private String city;
     private List<String> tags;
 
-    public TouristAttraction(String name, String description, String city) {
+    public TouristAttraction(String name, String description, String city, List<String> tags) {
         this.name = name;
         this.description = description;
         this.city = city;
-        this.tags = new ArrayList<>();
+        this.tags = tags;
     }
     public TouristAttraction(){}
 
