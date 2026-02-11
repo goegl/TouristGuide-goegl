@@ -25,7 +25,7 @@ private final TouristService service;
     @GetMapping("/{name}")
     public String findAttractionByName(@PathVariable String name, Model model){
         model.addAttribute("attraction", service.findByName(name));
-        return "findattractionbyname";
+        return "findAttractionByName";
     }
 
     @GetMapping("/{name}/tags")
@@ -34,4 +34,5 @@ private final TouristService service;
         model.addAttribute("attraction", attraction);
         return "tags";
     }
+
 }
