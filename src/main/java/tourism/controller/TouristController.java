@@ -34,6 +34,7 @@ public class TouristController {
         return "tags";
     }
 
+    // ADD FORM
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("attraction", new TouristAttraction());
@@ -44,9 +45,16 @@ public class TouristController {
         return "addAttraction";
     }
 
+    // ADD HANDLER
     @PostMapping("/save")
     public String saveAttraction(@ModelAttribute TouristAttraction attraction) {
         service.add(attraction);
+        return "redirect:/attractions";
+    }
+
+    @PostMapping("/delete/{name}")
+    public String deleteAttraction(@PathVariable String name){
+        service.delete(name);
         return "redirect:/attractions";
     }
 

@@ -20,6 +20,13 @@
         <td>
             <a th:href="@{/attractions/{name}/tags(name=${attraction.name})}">Tags</a>
         </td>
+
+
+        <td>
+            <form th:action="@{/attractions/delete/{name}(name=${attraction.name})}" th:method="post">
+                <button type="submit">Slet</button>
+            </form>
+        </td>
     </tr>
 </table>
 
