@@ -18,6 +18,6 @@ private final TouristService service;
     @GetMapping
     public String listAttractions(Model model){
         model.addAttribute("attractions", service.getAllAttractions());
-        return "attractionlist";
+        return "attractionList";
     }
 }
