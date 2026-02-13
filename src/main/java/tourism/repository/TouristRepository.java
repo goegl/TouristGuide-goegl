@@ -34,9 +34,8 @@ public class TouristRepository {
     }
 
     public void populateAttractions(){
-        add(new TouristAttraction("DolphinShow", "A show with dolphins", "Grenaa", List.of("Sea Creatures", "Acrobatics")));
-        add(new TouristAttraction("CatCafe", "A cafe with cats you can pet", "København", List.of("Cafe", "Cats", "Cozy")));
-
+        add(new TouristAttraction("Dolphin Show", "A show with dolphins", "Grenaa", List.of("Sea Creatures", "Acrobatics")));
+        add(new TouristAttraction("Cat Cafe", "A cafe with cats you can pet", "København", List.of("Cafe", "Cats", "Cozy")));
     }
 
     public TouristAttraction findByName(String name){
