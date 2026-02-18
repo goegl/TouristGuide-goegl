@@ -63,14 +63,14 @@ class TouristControllerTest {
     }
 
     @Test
-    void shouldShowAddForm() throws Exception{
+    void shouldShowAddForm() throws Exception {
         mockMvc.perform(get("/attractions/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("addAttraction"));
     }
 
     @Test
-    void saveAttraction() throws Exception{
+    void saveAttraction() throws Exception {
         TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
         when(service.add(any(TouristAttraction.class))).thenReturn(touristAttraction);
 
@@ -91,8 +91,14 @@ class TouristControllerTest {
         assertNotNull(captured.getTags());
     }
 
+
     @Test
-    void deleteAttraction() {
+    void deleteAttraction() throws Exception {
+        mockMvc.perform(post("/attractions/delete/Tivoli"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/attractions"));
+
+        verify(service).delete("Tivoli");
     }
 
     @Test

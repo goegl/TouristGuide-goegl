@@ -61,11 +61,12 @@ public class TouristRepository {
         existing.setTags(attraction.getTags());
     }
 
-    public void delete(String name){
+    public TouristAttraction delete(String name){
         TouristAttraction found = findByName(name);
         if (found != null) {
             attractions.remove(found);
         }
+        return found;
     }
 
 }

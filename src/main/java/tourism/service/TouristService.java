@@ -23,8 +23,9 @@ public class TouristService {
         repository.update(attraction);
     }
 
-    public void delete(String name) {
+    public TouristAttraction delete(String name) {
         repository.delete(name);
+        return repository.findByName(name);
     }
 
     public List<String> getCities() {
