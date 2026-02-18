@@ -15,7 +15,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -57,7 +56,12 @@ class TouristControllerTest {
     }
 
     @Test
-    void showTags() {
+    void showTags() throws Exception {
+        TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
+        when(service.findByName("Tivoli")).thenReturn(touristAttraction);
+        mockMvc.perform(get("/attractions/Tivoli/tags"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("tags"));
     }
 
     @Test
@@ -113,7 +117,25 @@ class TouristControllerTest {
     }
 
     @Test
-    void updateAttraction() {
+    void updateAttraction() throws Exception {
+        TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
+        when(service.findByName("Tivoli")).thenReturn(touristAttraction);
+        mockMvc.perform(post("/attractions/update")
+                        .param("name", "Tivoli")
+                        .param("description", "En forlystelsespark")
+                        .param("city", "Grenaa")
+                        .param("tags", "Sjovt", "Klassisk"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/attractions"));
+        verify(service).update((any(TouristAttraction.class)));
 
+        ArgumentCaptor<TouristAttraction> captor = ArgumentCaptor.forClass(TouristAttraction.class);
+        verify(service).update(captor.capture());
+        TouristAttraction captured = captor.getValue();
+        assertEquals("Tivoli", captured.getName());
+        assertEquals("En forlystelsespark", captured.getDescription());
+        assertEquals("Grenaa", captured.getCity());
+        assertNotNull(captured.getTags());
     }
 }
+
