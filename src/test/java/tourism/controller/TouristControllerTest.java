@@ -56,7 +56,7 @@ class TouristControllerTest {
     }
 
     @Test
-    void showTags() throws Exception {
+    void shouldShowTags() throws Exception {
         TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
         when(service.findByName("Tivoli")).thenReturn(touristAttraction);
         mockMvc.perform(get("/attractions/Tivoli/tags"))
@@ -72,7 +72,7 @@ class TouristControllerTest {
     }
 
     @Test
-    void saveAttraction() throws Exception {
+    void shouldSaveAttraction() throws Exception {
         TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
         when(service.add(any(TouristAttraction.class))).thenReturn(touristAttraction);
 
@@ -95,7 +95,7 @@ class TouristControllerTest {
 
 
     @Test
-    void deleteAttraction() throws Exception {
+    void shouldDeleteAttraction() throws Exception {
         mockMvc.perform(post("/attractions/delete/Tivoli"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/attractions"));
@@ -104,7 +104,7 @@ class TouristControllerTest {
     }
 
     @Test
-    void showEditForm() throws Exception {
+    void shouldShowEditForm() throws Exception {
         TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
 
         when(service.findByName("Tivoli")).thenReturn(touristAttraction);
@@ -117,7 +117,7 @@ class TouristControllerTest {
     }
 
     @Test
-    void updateAttraction() throws Exception {
+    void shouldUpdateAttraction() throws Exception {
         TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
         when(service.findByName("Tivoli")).thenReturn(touristAttraction);
         mockMvc.perform(post("/attractions/update")
