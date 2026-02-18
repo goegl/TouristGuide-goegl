@@ -54,8 +54,6 @@ class TouristControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("findAttractionByName"))
                 .andExpect(model().attribute("attraction", mock));
-
-
     }
 
     @Test
@@ -102,10 +100,20 @@ class TouristControllerTest {
     }
 
     @Test
-    void showEditForm() {
+    void showEditForm() throws Exception {
+        TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
+
+        when(service.findByName("Tivoli")).thenReturn(touristAttraction);
+
+        mockMvc.perform(get("/attractions/Tivoli/edit"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("editAttraction"))
+                .andExpect(model().attribute("attraction", touristAttraction));
+
     }
 
     @Test
     void updateAttraction() {
+
     }
 }
