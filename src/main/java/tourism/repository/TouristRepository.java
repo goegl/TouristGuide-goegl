@@ -29,8 +29,11 @@ public class TouristRepository {
     }
 
 
-    public void add(TouristAttraction attraction){
-        attractions.add(attraction);
+    public TouristAttraction add(TouristAttraction attraction){
+        if(attraction.getName() != null) {
+            attractions.add(attraction);
+        }
+        return attraction;
     }
 
     public void populateAttractions(){

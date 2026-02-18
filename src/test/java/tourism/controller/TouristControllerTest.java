@@ -14,8 +14,11 @@ import tourism.service.TouristService;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TouristController.class)
@@ -50,16 +53,9 @@ class TouristControllerTest {
         mockMvc.perform(get("/attractions/HoolaHoopRink"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("findAttractionByName"))
-                .andExpect(model().attributeExists("attraction"))
                 .andExpect(model().attribute("attraction", mock));
 
 
-//        ArgumentCaptor<TouristAttraction> captor = ArgumentCaptor.forClass(TouristAttraction.class);
-//        TouristAttraction captured = captor.getValue();
-//        assertEquals("HoolaHoopRink", captured.getName());
-//        assertEquals("yay", captured.getDescription());
-//        assertEquals("Grenaa", captured.getCity());
-//        assertNotNull(captured.getTags());
     }
 
     @Test
@@ -67,11 +63,32 @@ class TouristControllerTest {
     }
 
     @Test
-    void showAddForm() {
+    void shouldShowAddForm() throws Exception{
+        mockMvc.perform(get("/attractions/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("addAttraction"));
     }
 
     @Test
-    void saveAttraction() {
+    void saveAttraction() throws Exception{
+        TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
+        when(service.add(any(TouristAttraction.class))).thenReturn(touristAttraction);
+
+        mockMvc.perform(post("/attractions/save")
+                        .param("name", "Tivoli")
+                        .param("description", "En forlystelsespark")
+                        .param("city", "København")
+                        .param("tags", String.valueOf(List.of("Sjovt", "Klassisk"))))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/attractions"));
+
+        ArgumentCaptor<TouristAttraction> captor = ArgumentCaptor.forClass(TouristAttraction.class);
+        verify(service).add(captor.capture());
+        TouristAttraction captured = captor.getValue();
+        assertEquals("Tivoli", captured.getName());
+        assertEquals("En forlystelsespark", captured.getDescription());
+        assertEquals("København", captured.getCity());
+        assertNotNull(captured.getTags());
     }
 
     @Test

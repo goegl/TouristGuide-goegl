@@ -14,8 +14,9 @@ public class TouristService {
         this.repository = repository;
     }
 
-    public void add(TouristAttraction attraction) {
+    public TouristAttraction add(TouristAttraction attraction) {
         repository.add(attraction);
+        return attraction;
     }
 
     public void update(TouristAttraction attraction) {
