@@ -9,8 +9,8 @@ import java.util.List;
 @Repository
 public class TouristRepository {
     List<TouristAttraction> attractions = new ArrayList<>();
-    private List<String> cities = new ArrayList<>(List.of("Grenaa","København", "Århus", "Roskilde", "Slagelse"));
-    private List<String> tags = new ArrayList<>(List.of("Cafe", "Cats", "Cozy","Sea Creatures", "Acrobatics"));
+    private final List<String> cities = new ArrayList<>(List.of("Grenaa","København", "Århus", "Roskilde", "Slagelse"));
+    private final List<String> tags = new ArrayList<>(List.of("Cafe", "Cats", "Cozy","Sea Creatures", "Acrobatics"));
 
     public TouristRepository(){
         populateAttractions();
