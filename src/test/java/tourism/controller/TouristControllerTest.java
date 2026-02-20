@@ -43,7 +43,7 @@ class TouristControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("attractionList"));
     }
-
+    // TODO: add verify for findByName() + rename mock to mockTouristAttraction or something more meaningful
     @Test
     void shouldFindAttractionByName() throws Exception {
         TouristAttraction mock = new TouristAttraction(/*"HoolaHoopRink", "yay", "Grenaa", List.of("tag")*/);
@@ -54,7 +54,7 @@ class TouristControllerTest {
                 .andExpect(view().name("findAttractionByName"))
                 .andExpect(model().attribute("attraction", mock));
     }
-
+    // // TODO: add verify for findByName()
     @Test
     void shouldShowTags() throws Exception {
         TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
@@ -93,7 +93,7 @@ class TouristControllerTest {
         assertNotNull(captured.getTags());
     }
 
-
+    // TODO: add when to mock service
     @Test
     void shouldDeleteAttraction() throws Exception {
         mockMvc.perform(post("/attractions/delete/Tivoli"))
@@ -102,7 +102,7 @@ class TouristControllerTest {
 
         verify(service).delete("Tivoli");
     }
-
+    // TODO: add verify for findByName()
     @Test
     void shouldShowEditForm() throws Exception {
         TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
@@ -135,6 +135,7 @@ class TouristControllerTest {
         assertEquals("Tivoli", captured.getName());
         assertEquals("En forlystelsespark", captured.getDescription());
         assertEquals("Grenaa", captured.getCity());
+        // TODO: assertEquals with the tags
         assertNotNull(captured.getTags());
     }
 }
