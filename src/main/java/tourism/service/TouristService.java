@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class TouristService {
-    private TouristRepository repository;
+    private final TouristRepository repository;
 
     public TouristService(TouristRepository repository) {
         this.repository = repository;
