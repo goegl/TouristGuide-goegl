@@ -135,7 +135,7 @@ class TouristControllerTest {
         assertEquals("Tivoli", captured.getName());
         assertEquals("En forlystelsespark", captured.getDescription());
         assertEquals("Grenaa", captured.getCity());
-        // TODO: assertEquals with the tags
+        assertEquals(List.of("Sjovt", "Klassisk"), captured.getTags());
         assertNotNull(captured.getTags());
     }
 }
