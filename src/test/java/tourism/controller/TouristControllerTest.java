@@ -62,6 +62,7 @@ class TouristControllerTest {
         mockMvc.perform(get("/attractions/Tivoli/tags"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("tags"));
+        verify(service).findByName("Tivoli");
     }
 
     @Test
