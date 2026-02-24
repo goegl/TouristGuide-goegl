@@ -15,7 +15,6 @@ public class TouristAttraction {
         this.tags = tags;
     }
 
-    // empty constructor fordi at add form i controller bruger en tom konstruktör
     public TouristAttraction(){}
 
     public String getName() {
