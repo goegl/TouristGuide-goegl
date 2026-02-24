@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fragment</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+
+</head>
+<body>
+
+<div th:fragment="header">
+    <img th:src="@{/images/favicon_test.png}" id="logo" alt="image">
+    <nav>
+        <div class="container">
+            <button><a href="/attractions">Se Alle Attraktioner</a></button>
+            <button><a href="/attractions/add">Tilføj</a></button>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

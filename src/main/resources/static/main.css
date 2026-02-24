@@ -24,3 +24,13 @@ select, input[type="text"], input[type="number"]{
     width:200px;
     box-sizing:border-box;
 }
+
+#logo {
+    height: 50px;
+    width: 50px;
+}
+
+img {
+    height: 50px;
+    width: 50px;
+}
