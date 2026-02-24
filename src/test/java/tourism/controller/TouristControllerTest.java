@@ -93,7 +93,6 @@ class TouristControllerTest {
         assertNotNull(captured.getTags());
     }
 
-    // TODO: add when to mock service
     @Test
     void shouldDeleteAttraction() throws Exception {
         mockMvc.perform(post("/attractions/delete/Tivoli"))
