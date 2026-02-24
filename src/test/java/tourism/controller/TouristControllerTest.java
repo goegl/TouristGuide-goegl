@@ -101,7 +101,7 @@ class TouristControllerTest {
 
         verify(service).delete("Tivoli");
     }
-    // TODO: add verify for findByName()
+
     @Test
     void shouldShowEditForm() throws Exception {
         TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
@@ -112,6 +112,7 @@ class TouristControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("editAttraction"))
                 .andExpect(model().attribute("attraction", touristAttraction));
+        verify(service).findByName("Tivoli");
 
     }
 
