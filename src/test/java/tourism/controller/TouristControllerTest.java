@@ -43,18 +43,19 @@ class TouristControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("attractionList"));
     }
-    // TODO: add verify for findByName() + rename mock to mockTouristAttraction or something more meaningful
+
     @Test
     void shouldFindAttractionByName() throws Exception {
-        TouristAttraction mock = new TouristAttraction(/*"HoolaHoopRink", "yay", "Grenaa", List.of("tag")*/);
-        when(service.findByName("HoolaHoopRink")).thenReturn(mock);
+        TouristAttraction mockAttraction = new TouristAttraction(/*"HoolaHoopRink", "yay", "Grenaa", List.of("tag")*/);
+        when(service.findByName("HoolaHoopRink")).thenReturn(mockAttraction);
 
         mockMvc.perform(get("/attractions/HoolaHoopRink"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("findAttractionByName"))
-                .andExpect(model().attribute("attraction", mock));
+                .andExpect(model().attribute("attraction", mockAttraction));
+        verify(service).findByName("HoolaHoopRink");
     }
-    // // TODO: add verify for findByName()
+
     @Test
     void shouldShowTags() throws Exception {
         TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
