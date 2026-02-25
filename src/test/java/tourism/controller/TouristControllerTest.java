@@ -46,13 +46,13 @@ class TouristControllerTest {
 
     @Test
     void shouldFindAttractionByName() throws Exception {
-        TouristAttraction mockAttraction = new TouristAttraction(/*"HoolaHoopRink", "yay", "Grenaa", List.of("tag")*/);
-        when(service.findByName("HoolaHoopRink")).thenReturn(mockAttraction);
+        TouristAttraction touristAttraction = new TouristAttraction();
+        when(service.findByName("HoolaHoopRink")).thenReturn(touristAttraction);
 
         mockMvc.perform(get("/attractions/HoolaHoopRink"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("findAttractionByName"))
-                .andExpect(model().attribute("attraction", mockAttraction));
+                .andExpect(model().attribute("attraction", touristAttraction));
         verify(service).findByName("HoolaHoopRink");
     }
 
