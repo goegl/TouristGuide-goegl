@@ -8,6 +8,10 @@ public class TouristAttraction {
     private String city;
     private List<String> tags;
 
+    private int id;
+    private int city_id;
+    private int attraction_tag_id;
+
     public TouristAttraction(String name, String description, String city, List<String> tags) {
         this.name = name;
         this.description = description;
@@ -47,5 +51,29 @@ public class TouristAttraction {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCity_id() {
+        return city_id;
+    }
+
+    public void setCity_id(int city_id) {
+        this.city_id = city_id;
+    }
+
+    public int getAttraction_tag_id() {
+        return attraction_tag_id;
+    }
+
+    public void setAttraction_tag_id(int attraction_tag_id) {
+        this.attraction_tag_id = attraction_tag_id;
     }
 }
