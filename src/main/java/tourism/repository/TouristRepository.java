@@ -9,11 +9,13 @@ import java.util.List;
 
 @Repository
 public class TouristRepository {
+    private final JdbcTemplate jdbcTemplate;
     List<TouristAttraction> attractions = new ArrayList<>();
     private final List<String> cities = new ArrayList<>(List.of("Grenaa","København", "Århus", "Roskilde", "Slagelse"));
     private final List<String> tags = new ArrayList<>(List.of("Cafe", "Cats", "Cozy","Sea Creatures", "Acrobatics"));
 
-    public TouristRepository(){
+    public TouristRepository(JdbcTemplate jdbcTemplate){
+        this.jdbcTemplate = jdbcTemplate;
         populateAttractions();
     }
 
