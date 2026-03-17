@@ -1,7 +1,9 @@
 package tourism.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import tourism.model.City;
 import tourism.model.TouristAttraction;
 
 import java.util.ArrayList;
@@ -13,6 +15,13 @@ public class TouristRepository {
     List<TouristAttraction> attractions = new ArrayList<>();
     private final List<String> cities = new ArrayList<>(List.of("Grenaa","København", "Århus", "Roskilde", "Slagelse"));
     private final List<String> tags = new ArrayList<>(List.of("Cafe", "Cats", "Cozy","Sea Creatures", "Acrobatics"));
+
+    private final RowMapper<City> cityRowMapper = (rs, rowNum) -> {
+        City city = new City();
+        city.setId(rs.getInt("city_id"));
+        city.setName(rs.getString("name"));
+        return city;
+    };
 
     public TouristRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
