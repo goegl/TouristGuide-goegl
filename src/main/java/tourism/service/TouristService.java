@@ -21,6 +21,10 @@ public class TouristService {
         return attraction;
     }
 
+    public TouristAttraction addAttractionToDB(TouristAttraction attraction){
+        return repository.addAttractionToDB(attraction);
+    }
+
     public void update(TouristAttraction attraction) {
         repository.update(attraction);
     }

@@ -81,9 +81,10 @@ public class TouristController {
     }
 
     @GetMapping("/db")
-    public ResponseEntity<List<TouristAttraction>> getAttractionsFromDB(){
-        List<TouristAttraction> list = service.getAllAttractionsFromDB();
-        return new ResponseEntity<List<TouristAttraction>>(list,HttpStatus.OK);
+    public ResponseEntity<TouristAttraction> saveToDB(){
+        TouristAttraction attraction = new TouristAttraction(3, "helloHiii", "a description", 1);
+        TouristAttraction addedAttraction = service.addAttractionToDB(attraction);
+        return new ResponseEntity<TouristAttraction>(addedAttraction,HttpStatus.OK);
     }
 
 }
