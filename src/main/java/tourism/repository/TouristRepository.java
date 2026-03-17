@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import tourism.model.City;
+import tourism.model.Tag;
 import tourism.model.TouristAttraction;
 
 import java.util.ArrayList;
@@ -22,6 +23,14 @@ public class TouristRepository {
         city.setName(rs.getString("name"));
         return city;
     };
+
+    private final RowMapper<Tag> tagRowMapper = (rs, rowNum) -> {
+        Tag tag = new Tag();
+        tag.setId(rs.getInt("tag_id"));
+        tag.setName(rs.getString("name"));
+        return tag;
+    };
+
 
     public TouristRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
