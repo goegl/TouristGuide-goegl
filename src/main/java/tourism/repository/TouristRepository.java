@@ -81,6 +81,11 @@ public class TouristRepository {
         return attraction;
     }
 
+    public TouristAttraction findByIdFromDB(int id){
+        String sql = "SELECT * FROM attraction WHERE attraction_id = ?";
+        return jdbcTemplate.queryForObject(sql, TouristAttraction.class, id);
+    }
+
     public void populateAttractions(){
         add(new TouristAttraction("Dolphin Show", "A show with dolphins", "Grenaa", List.of("Sea Creatures", "Acrobatics")));
         add(new TouristAttraction("Cat Cafe", "A cafe with cats you can pet", "København", List.of("Cafe", "Cats", "Cozy")));
