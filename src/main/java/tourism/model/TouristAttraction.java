@@ -68,11 +68,4 @@ public class TouristAttraction {
         this.city_id = city_id;
     }
 
-    public int getAttraction_tag_id() {
-        return attraction_tag_id;
-    }
-
-    public void setAttraction_tag_id(int attraction_tag_id) {
-        this.attraction_tag_id = attraction_tag_id;
-    }
 }
