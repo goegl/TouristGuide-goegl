@@ -10,7 +10,6 @@ public class TouristAttraction {
 
     private int id;
     private int city_id;
-    private int attraction_tag_id;
 
     public TouristAttraction(String name, String description, String city, List<String> tags) {
         this.name = name;
