@@ -21,6 +21,10 @@ public class TouristService {
         return attraction;
     }
 
+    public TouristAttraction addAttractionToDB(TouristAttraction attraction){
+        return repository.addAttractionToDB(attraction);
+    }
+
     public void update(TouristAttraction attraction) {
         repository.update(attraction);
     }
@@ -39,6 +43,8 @@ public class TouristService {
     public TouristAttraction findByName(String name){
         return repository.findByName(name);
     }
+
+    public TouristAttraction findByIdFromDB(int id){ return repository.findByIdFromDB(id);}
 
     public List<TouristAttraction> getAllAttractionsFromDB(){
         return repository.getAttractionsFromDB();

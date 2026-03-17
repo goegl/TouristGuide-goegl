@@ -2,11 +2,15 @@ package tourism.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import tourism.model.City;
 import tourism.model.Tag;
 import tourism.model.TouristAttraction;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,12 +77,38 @@ public class TouristRepository {
         return tags;
     }
 
+    public TouristAttraction addAttractionToDB(TouristAttraction attraction){
+        String sql = "INSERT INTO attraction(name, description,city_id) VALUES (?,?,?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, attraction.getName());
+            ps.setString(2, attraction.getDescription());
+            ps.setInt(3, attraction.getCity_id());
+            return ps;
+        }, keyHolder);
+
+        int attractionId = keyHolder.getKey() != null ? keyHolder.getKey().intValue(): -1;
+
+        if (attractionId != -1){
+            return new TouristAttraction(attractionId, attraction.getName(), attraction.getDescription(), attraction.getCity_id());
+        }
+        else {
+            throw new RuntimeException("could not add the attraction");
+        }
+    }
 
     public TouristAttraction add(TouristAttraction attraction){
         if(attraction.getName() != null) {
             attractions.add(attraction);
         }
         return attraction;
+    }
+
+    public TouristAttraction findByIdFromDB(int id){
+        String sql = "SELECT * FROM attraction WHERE attraction_id = ?";
+        return jdbcTemplate.queryForObject(sql, attractionRowMapper, id);
     }
 
     public void populateAttractions(){
