@@ -37,8 +37,8 @@ public class TouristRepository {
         attraction.setCity_id(rs.getInt("city_id"));
         attraction.setName(rs.getString("name"));
         attraction.setDescription(rs.getString("description"));
-
-    }
+        return attraction;
+    };
 
 
     public TouristRepository(JdbcTemplate jdbcTemplate){
