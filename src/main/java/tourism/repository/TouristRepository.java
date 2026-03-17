@@ -46,12 +46,27 @@ public class TouristRepository {
         populateAttractions();
     }
 
+    public List<TouristAttraction> getAttractionsFromDB(){
+        String sql = "SELECT * FROM attraction";
+        return jdbcTemplate.query(sql, attractionRowMapper);
+    }
+
     public List<TouristAttraction> getAttractions() {
         return attractions;
     }
 
+    public List<City> getCitiesFromDB(){
+        String sql = "SELECT * FROM city";
+        return jdbcTemplate.query(sql, cityRowMapper);
+    }
+
     public List<String> getCities() {
         return cities;
+    }
+
+    public List<Tag> getTagsFromDB(){
+        String sql = "SELECT * FROM tag";
+        return jdbcTemplate.query(sql, tagRowMapper);
     }
 
     public List<String> getTags() {
