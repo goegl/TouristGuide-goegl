@@ -1,6 +1,8 @@
 package tourism.service;
 
 import org.springframework.stereotype.Service;
+import tourism.model.City;
+import tourism.model.Tag;
 import tourism.model.TouristAttraction;
 import tourism.repository.TouristRepository;
 
@@ -44,6 +46,14 @@ public class TouristService {
 
     public List<TouristAttraction> getAllAttractions(){
         return repository.getAttractions();
+    }
+
+    public List<City> getAllCitiesFromDB(){
+        return repository.getCitiesFromDB();
+    }
+
+    public List<Tag> getAllTagsFromDB(){
+        return repository.getTagsFromDB();
     }
 
 

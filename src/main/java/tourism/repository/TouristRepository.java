@@ -55,8 +55,18 @@ public class TouristRepository {
         return attractions;
     }
 
+    public List<City> getCitiesFromDB(){
+        String sql = "SELECT * FROM city";
+        return jdbcTemplate.query(sql, cityRowMapper);
+    }
+
     public List<String> getCities() {
         return cities;
+    }
+
+    public List<Tag> getTagsFromDB(){
+        String sql = "SELECT * FROM tag";
+        return jdbcTemplate.query(sql, tagRowMapper);
     }
 
     public List<String> getTags() {
