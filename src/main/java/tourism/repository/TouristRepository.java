@@ -46,6 +46,11 @@ public class TouristRepository {
         populateAttractions();
     }
 
+    public List<TouristAttraction> getAttractionsFromDB(){
+        String sql = "SELCET * FROM attraction";
+        return jdbcTemplate.query(sql, attractionRowMapper);
+    }
+
     public List<TouristAttraction> getAttractions() {
         return attractions;
     }
