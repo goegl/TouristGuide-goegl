@@ -1,7 +1,10 @@
 package tourism.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import tourism.model.City;
+import tourism.model.Tag;
 import tourism.model.TouristAttraction;
 
 import java.util.ArrayList;
@@ -13,6 +16,30 @@ public class TouristRepository {
     List<TouristAttraction> attractions = new ArrayList<>();
     private final List<String> cities = new ArrayList<>(List.of("Grenaa","København", "Århus", "Roskilde", "Slagelse"));
     private final List<String> tags = new ArrayList<>(List.of("Cafe", "Cats", "Cozy","Sea Creatures", "Acrobatics"));
+
+    private final RowMapper<City> cityRowMapper = (rs, rowNum) -> {
+        City city = new City();
+        city.setId(rs.getInt("city_id"));
+        city.setName(rs.getString("name"));
+        return city;
+    };
+
+    private final RowMapper<Tag> tagRowMapper = (rs, rowNum) -> {
+        Tag tag = new Tag();
+        tag.setId(rs.getInt("tag_id"));
+        tag.setName(rs.getString("name"));
+        return tag;
+    };
+
+    private final RowMapper<TouristAttraction> attractionRowMapper = (rs, rowNum) -> {
+        TouristAttraction attraction = new TouristAttraction();
+        attraction.setId(rs.getInt("attraction_id"));
+        attraction.setCity_id(rs.getInt("city_id"));
+        attraction.setName(rs.getString("name"));
+        attraction.setDescription(rs.getString("description"));
+        return attraction;
+    };
+
 
     public TouristRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
