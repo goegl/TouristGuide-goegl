@@ -1,10 +1,14 @@
 package tourism.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tourism.model.TouristAttraction;
 import tourism.service.TouristService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/attractions")
@@ -74,6 +78,12 @@ public class TouristController {
     public String updateAttraction(@ModelAttribute TouristAttraction attraction){
         service.update(attraction);
         return "redirect:/attractions";
+    }
+
+    @GetMapping("/db")
+    public ResponseEntity<List<TouristAttraction>> getAttractionsFromDB(){
+        List<TouristAttraction> list = service.getAllAttractionsFromDB();
+        return new ResponseEntity<List<TouristAttraction>>(list,HttpStatus.OK);
     }
 
 }

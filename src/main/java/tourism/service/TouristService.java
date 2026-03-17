@@ -37,6 +37,11 @@ public class TouristService {
     public TouristAttraction findByName(String name){
         return repository.findByName(name);
     }
+
+    public List<TouristAttraction> getAllAttractionsFromDB(){
+        return repository.getAttractionsFromDB();
+    }
+
     public List<TouristAttraction> getAllAttractions(){
         return repository.getAttractions();
     }
