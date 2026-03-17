@@ -31,6 +31,15 @@ public class TouristRepository {
         return tag;
     };
 
+    private final RowMapper<TouristAttraction> attractionRowMapper = (rs, rowNum) -> {
+        TouristAttraction attraction = new TouristAttraction();
+        attraction.setId(rs.getInt("attraction_id"));
+        attraction.setCity_id(rs.getInt("city_id"));
+        attraction.setName(rs.getString("name"));
+        attraction.setDescription(rs.getString("description"));
+
+    }
+
 
     public TouristRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
