@@ -40,6 +40,8 @@ public class TouristService {
         return repository.findByName(name);
     }
 
+    public TouristAttraction findByIdFromDB(int id){ return repository.findByIdFromDB(id);}
+
     public List<TouristAttraction> getAllAttractionsFromDB(){
         return repository.getAttractionsFromDB();
     }
