@@ -41,6 +41,7 @@ public class TouristRepository {
         attraction.setCity_id(rs.getInt("city_id"));
         attraction.setName(rs.getString("name"));
         attraction.setDescription(rs.getString("description"));
+        attraction.setTagList(getTagsByAttractionIdFromDB(attraction.getId()));
         return attraction;
     };
 
@@ -53,14 +54,8 @@ public class TouristRepository {
     public List<TouristAttraction> getAttractionsFromDB(){
         String sql = "SELECT * FROM attraction";
 
-        List<TouristAttraction> attractions = jdbcTemplate.query(sql, attractionRowMapper);
+        return jdbcTemplate.query(sql, attractionRowMapper);
 
-        for (TouristAttraction attraction : attractions){
-            List<Tag> tags = getTagsByAttractionIdFromDB(attraction.getId());
-            attraction.setTagList(tags);
-        }
-
-        return attractions;
     }
 
     public List<TouristAttraction> getAttractions() {
