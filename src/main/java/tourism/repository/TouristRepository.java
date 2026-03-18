@@ -52,7 +52,15 @@ public class TouristRepository {
 
     public List<TouristAttraction> getAttractionsFromDB(){
         String sql = "SELECT * FROM attraction";
-        return jdbcTemplate.query(sql, attractionRowMapper);
+
+        List<TouristAttraction> attractions = jdbcTemplate.query(sql, attractionRowMapper);
+
+        for (TouristAttraction attraction : attractions){
+            List<Tag> tags = getTagsByIdFromDB(attraction.getId());
+            attraction.setTagList(tags);
+        }
+
+        return attractions;
     }
 
     public List<TouristAttraction> getAttractions() {
@@ -71,6 +79,17 @@ public class TouristRepository {
     public List<Tag> getTagsFromDB(){
         String sql = "SELECT * FROM tag";
         return jdbcTemplate.query(sql, tagRowMapper);
+    }
+
+    public List<Tag> getTagsByIdFromDB(int attractionId){
+        String sql = """
+                SELECT tag.tag_id, tag.name
+                FROM tag 
+                JOIN attraction_tag 
+                    ON tag.tag_id = attraction_tag.tag_id
+                WHERE attraction_tag.attraction_id = ?
+                """;
+        return jdbcTemplate.query(sql, tagRowMapper, attractionId);
     }
 
     public List<String> getTags() {

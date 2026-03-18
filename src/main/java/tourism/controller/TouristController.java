@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import tourism.model.Tag;
 import tourism.model.TouristAttraction;
 import tourism.service.TouristService;
 
@@ -81,10 +82,9 @@ public class TouristController {
     }
 
     @GetMapping("/db")
-    public ResponseEntity<TouristAttraction> saveToDB(){
-        TouristAttraction attraction = new TouristAttraction(3, "helloHiii", "a description", 1);
-        TouristAttraction addedAttraction = service.addAttractionToDB(attraction);
-        return new ResponseEntity<TouristAttraction>(addedAttraction,HttpStatus.OK);
+    public ResponseEntity<List<TouristAttraction>> getTagListFromDB(){
+        List<TouristAttraction> attractions = service.getAllAttractionsFromDB();
+        return new ResponseEntity<List<TouristAttraction>>(attractions,HttpStatus.OK);
     }
 
 }
