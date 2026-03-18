@@ -26,17 +26,41 @@ public class TouristController {
         return "attractionList";
     }
 
-    @GetMapping("/{name}")
-    public String findAttractionByName(@PathVariable String name, Model model) {
-        model.addAttribute("attraction", service.findByName(name));
-        return "findAttractionByName";
+    //DB-Method
+    @GetMapping("/list")
+    public String listAttractionsFromDB(Model model) {
+        model.addAttribute("attractions", service.getAllAttractionsFromDB());
+        return "attractionListFromDB";
     }
 
-    @GetMapping("/{name}/tags")
-    public String showTags(@PathVariable String name, Model model) {
-        TouristAttraction attraction = service.findByName(name);
+
+//    @GetMapping("/{name}")
+//    public String findAttractionByName(@PathVariable String name, Model model) {
+//        model.addAttribute("attraction", service.findByName(name));
+//        return "findAttractionByName";
+//    }
+
+    //DB-Method
+    @GetMapping("/{id}")
+    public String findAttractionByIdFromDB(@PathVariable int id, Model model) {
+        model.addAttribute("attraction", service.findByIdFromDB(id));
+        return "findAttractionByIdFromDB";
+    }
+
+
+//    @GetMapping("/{name}/tags")
+//    public String showTags(@PathVariable String name, Model model) {
+//        TouristAttraction attraction = service.findByName(name);
+//        model.addAttribute("attraction", attraction);
+//        return "tags";
+//    }
+
+    //DB-Method
+    @GetMapping("/{id}/tags")
+    public String showTagsFromDB(@PathVariable int id, Model model) {
+        TouristAttraction attraction = service.findByIdFromDB(id);
         model.addAttribute("attraction", attraction);
-        return "tags";
+        return "tagsFromDB";
     }
 
     // ADD FORM
