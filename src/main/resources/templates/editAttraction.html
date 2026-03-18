@@ -21,7 +21,7 @@
     <br>
 
     <label>By:</label>
-    <select th:field="*{city}">
+    <select th:field="*{cityOld}">
         <option th:each="city : ${cities}" th:value="${city}" th:text="${city}"></option>
     </select>
     <br>

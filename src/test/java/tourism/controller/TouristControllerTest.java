@@ -91,7 +91,7 @@ class TouristControllerTest {
         TouristAttraction captured = captor.getValue();
         assertEquals("Tivoli", captured.getName());
         assertEquals("En forlystelsespark", captured.getDescription());
-        assertEquals("København", captured.getCity());
+        assertEquals("København", captured.getCityOld());
         assertNotNull(captured.getTags());
     }
 
@@ -136,7 +136,7 @@ class TouristControllerTest {
         TouristAttraction captured = captor.getValue();
         assertEquals("Tivoli", captured.getName());
         assertEquals("En forlystelsespark", captured.getDescription());
-        assertEquals("Grenaa", captured.getCity());
+        assertEquals("Grenaa", captured.getCityOld());
         assertEquals(List.of("Sjovt", "Klassisk"), captured.getTags());
         assertNotNull(captured.getTags());
     }
