@@ -26,6 +26,14 @@ public class TouristController {
         return "attractionList";
     }
 
+    //DB-Method
+    @GetMapping("/list")
+    public String listAttractionsFromDB(Model model) {
+        model.addAttribute("attractions", service.getAllAttractionsFromDB());
+        return "attractionListFromDB";
+    }
+
+
     @GetMapping("/{name}")
     public String findAttractionByName(@PathVariable String name, Model model) {
         model.addAttribute("attraction", service.findByName(name));
