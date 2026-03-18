@@ -52,7 +52,15 @@ public class TouristRepository {
 
     public List<TouristAttraction> getAttractionsFromDB(){
         String sql = "SELECT * FROM attraction";
-        return jdbcTemplate.query(sql, attractionRowMapper);
+
+        List<TouristAttraction> attractions = jdbcTemplate.query(sql, attractionRowMapper);
+
+        for (TouristAttraction attraction : attractions){
+            List<Tag> tags = getTagsByIdFromDB(attraction.getId());
+            attraction.setTagList(tags);
+        }
+
+        return attractions;
     }
 
     public List<TouristAttraction> getAttractions() {
