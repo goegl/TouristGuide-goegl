@@ -146,7 +146,7 @@ public class TouristRepository {
         }
 
         existing.setDescription(attraction.getDescription());
-        existing.setCity(attraction.getCity());
+        existing.setCityOld(attraction.getCityOld());
         existing.setTags(attraction.getTags());
     }
 
