@@ -56,7 +56,7 @@ public class TouristRepository {
         List<TouristAttraction> attractions = jdbcTemplate.query(sql, attractionRowMapper);
 
         for (TouristAttraction attraction : attractions){
-            List<Tag> tags = getTagsByIdFromDB(attraction.getId());
+            List<Tag> tags = getTagsByAttractionIdFromDB(attraction.getId());
             attraction.setTagList(tags);
         }
 
@@ -81,7 +81,7 @@ public class TouristRepository {
         return jdbcTemplate.query(sql, tagRowMapper);
     }
 
-    public List<Tag> getTagsByIdFromDB(int attractionId){
+    public List<Tag> getTagsByAttractionIdFromDB(int attractionId){
         String sql = """
                 SELECT tag.tag_id, tag.name
                 FROM tag 
