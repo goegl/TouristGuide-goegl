@@ -34,11 +34,19 @@ public class TouristController {
     }
 
 
-    @GetMapping("/{name}")
-    public String findAttractionByName(@PathVariable String name, Model model) {
-        model.addAttribute("attraction", service.findByName(name));
-        return "findAttractionByName";
+//    @GetMapping("/{name}")
+//    public String findAttractionByName(@PathVariable String name, Model model) {
+//        model.addAttribute("attraction", service.findByName(name));
+//        return "findAttractionByName";
+//    }
+
+    //DB-Method
+    @GetMapping("/{id}")
+    public String findAttractionByIdFromDB(@PathVariable int id, Model model) {
+        model.addAttribute("attraction", service.findByIdFromDB(id));
+        return "findAttractionByIdFromDB";
     }
+
 
 //    @GetMapping("/{name}/tags")
 //    public String showTags(@PathVariable String name, Model model) {
