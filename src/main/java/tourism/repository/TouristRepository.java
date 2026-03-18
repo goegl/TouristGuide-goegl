@@ -73,6 +73,17 @@ public class TouristRepository {
         return jdbcTemplate.query(sql, tagRowMapper);
     }
 
+    public List<Tag> getTagsByIdFromDB(int attractionId){
+        String sql = """
+                SELECT tag.tag_id, tag.name
+                FROM tag 
+                JOIN attraction_tag 
+                    ON tag.tag_id = attraction_tag.tag_id
+                WHERE attraction_tag.attraction_id = ?
+                """;
+        return jdbcTemplate.query(sql, tagRowMapper, attractionId);
+    }
+
     public List<String> getTags() {
         return tags;
     }
