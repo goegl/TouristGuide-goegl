@@ -41,6 +41,7 @@ public class TouristRepository {
         attraction.setCity_id(rs.getInt("city_id"));
         attraction.setName(rs.getString("name"));
         attraction.setDescription(rs.getString("description"));
+        attraction.setCity(getCityByAttractionIdFromDB(attraction.getId()));
         attraction.setTagList(getTagsByAttractionIdFromDB(attraction.getId()));
         return attraction;
     };
@@ -65,6 +66,18 @@ public class TouristRepository {
     public List<City> getCitiesFromDB(){
         String sql = "SELECT * FROM city";
         return jdbcTemplate.query(sql, cityRowMapper);
+    }
+
+    public City getCityByAttractionIdFromDB(int attractionId){
+        String sql = """
+                SELECT city.city_id, city.name
+                FROM city
+                JOIN attraction
+                    ON attraction.city_id = city.city_id
+                WHERE attraction.attraction_id = ?
+                """;
+
+        return jdbcTemplate.queryForObject(sql, cityRowMapper, attractionId);
     }
 
     public List<String> getCities() {
