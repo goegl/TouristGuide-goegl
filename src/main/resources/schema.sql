@@ -25,7 +25,7 @@ create table attraction
     attraction_id int auto_increment primary key,
     name          varchar(150) not null,
     description   varchar(500),
-    city_id       int          not null,
+    city_id       int not null,
     foreign key (city_id) references city (city_id)
 );
 

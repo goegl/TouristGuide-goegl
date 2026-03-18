@@ -86,11 +86,20 @@ public class TouristController {
     }
 
     // ADD HANDLER
+//    @PostMapping("/save")
+//    public String saveAttraction(@ModelAttribute TouristAttraction attraction) {
+//        service.add(attraction);
+//        return "redirect:/attractions";
+//    }
+
+    //DB-Method
     @PostMapping("/save")
-    public String saveAttraction(@ModelAttribute TouristAttraction attraction) {
-        service.add(attraction);
-        return "redirect:/attractions";
+    public String saveAttractionToDB(@ModelAttribute TouristAttraction attraction) {
+        service.addAttractionToDB(attraction);
+        return "redirect:/attractions/list";
     }
+
+
 
     @PostMapping("/delete/{name}")
     public String deleteAttraction(@PathVariable String name){

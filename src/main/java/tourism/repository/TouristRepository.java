@@ -112,14 +112,15 @@ public class TouristRepository {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, attraction.getName());
             ps.setString(2, attraction.getDescription());
-            ps.setInt(3, attraction.getCity_id());
+            ps.setInt(3, attraction.getCity().getId());
             return ps;
         }, keyHolder);
 
         int attractionId = keyHolder.getKey() != null ? keyHolder.getKey().intValue(): -1;
 
         if (attractionId != -1){
-            return new TouristAttraction(attractionId, attraction.getName(), attraction.getDescription(), attraction.getCity_id());
+            //return new TouristAttraction(attractionId, attraction.getName(), attraction.getDescription(), attraction.getCity().getId());
+            return attraction;
         }
         else {
             throw new RuntimeException("could not add the attraction");
