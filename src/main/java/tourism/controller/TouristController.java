@@ -64,14 +64,25 @@ public class TouristController {
     }
 
     // ADD FORM
+//    @GetMapping("/add")
+//    public String showAddForm(Model model) {
+//        model.addAttribute("attraction", new TouristAttraction());
+//
+//        model.addAttribute("cities", service.getCities());
+//        model.addAttribute("tags", service.getTags());
+//
+//        return "addAttraction";
+//    }
+
+    //DB-Method
     @GetMapping("/add")
-    public String showAddForm(Model model) {
+    public String showAddFormWithDB(Model model) {
         model.addAttribute("attraction", new TouristAttraction());
 
-        model.addAttribute("cities", service.getCities());
-        model.addAttribute("tags", service.getTags());
+        model.addAttribute("cities", service.getAllCitiesFromDB());
+        model.addAttribute("tags", service.getAllTagsFromDB());
 
-        return "addAttraction";
+        return "addAttractionWithDB";
     }
 
     // ADD HANDLER
