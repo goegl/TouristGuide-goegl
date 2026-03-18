@@ -75,4 +75,11 @@ public class TouristAttraction {
         this.city_id = city_id;
     }
 
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
+    }
 }
