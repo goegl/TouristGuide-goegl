@@ -34,8 +34,8 @@ create table attraction_tag
     attraction_id int not null,
     tag_id        int not null,
     primary key (attraction_id, tag_id),
-    foreign key (attraction_id) references attraction (attraction_id),
-    foreign key (tag_id) references tag (tag_id)
+    foreign key (attraction_id) references attraction (attraction_id) ON DELETE CASCADE,
+    foreign key (tag_id) references tag (tag_id) ON DELETE RESTRICT
 );
 
 

@@ -25,7 +25,7 @@
 
 
         <td>
-            <form th:action="@{/attractions/delete/{name}(name=${attraction.name})}" th:method="post">
+            <form th:action="@{/attractions/delete/{id}(id=${attraction.id})}" th:method="get">
                 <button type="submit">Slet</button>
             </form>
         </td>

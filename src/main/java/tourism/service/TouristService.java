@@ -37,6 +37,13 @@ public class TouristService {
         repository.delete(name);
     }
 
+    //DB-Method
+    public TouristAttraction deleteAttractionFromDB(int attractionId){
+        TouristAttraction attractionToBeDeleted = repository.findByIdFromDB(attractionId);
+        repository.deleteAttractionFromDB(attractionId);
+        return attractionToBeDeleted;
+    }
+
     public List<String> getCities() {
         return repository.getCities();
     }

@@ -96,15 +96,22 @@ public class TouristController {
     @PostMapping("/save")
     public String saveAttractionToDB(@ModelAttribute TouristAttraction attraction) {
         service.addAttractionToDB(attraction);
-        return "redirect:/attractions/list";
+        return "redirect:/attractions";
     }
 
 
 
-    @PostMapping("/delete/{name}")
-    public String deleteAttraction(@PathVariable String name){
-        service.delete(name);
-        return "redirect:/attractions";
+//    @PostMapping("/delete/{name}")
+//    public String deleteAttraction(@PathVariable String name){
+//        service.delete(name);
+//        return "redirect:/attractions";
+//    }
+
+    //DB-Method
+    @GetMapping("/delete/{id}")
+    public String deleteAttractionFromDB(@PathVariable int id){
+        service.deleteAttractionFromDB(id);
+        return "redirect:/attractions/list";
     }
 
 //    //EDIT FORM

@@ -176,6 +176,10 @@ public class TouristRepository {
 
         updateTagsForAttraction(attraction.getId(), attraction.getTagIds());
 
+    //DB-Method
+    public void deleteAttractionFromDB(int attractionId){
+        String sql = "DELETE FROM attraction WHERE attraction_id = ?";
+        jdbcTemplate.update(sql, attractionId);
     }
 
     public void delete(String name){
