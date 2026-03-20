@@ -180,6 +180,11 @@ public class TouristRepository {
         }
     }
 
+    private void deleteTagsForAttraction(int attractionId){
+        String sql = "DELETE FROM attraction_tag WHERE attraction_id = ?";
+        jdbcTemplate.update(sql, attractionId);
+    }
+
     private void addTagsToAttraction(int attractionId, List<Integer> tagIds){
         if (tagIds == null) return;
 
