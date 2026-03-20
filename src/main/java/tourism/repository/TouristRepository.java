@@ -117,14 +117,16 @@ public class TouristRepository {
         }, keyHolder);
 
         int attractionId = keyHolder.getKey() != null ? keyHolder.getKey().intValue(): -1;
-        // update tags
-        if (attractionId != -1){
-            //return new TouristAttraction(attractionId, attraction.getName(), attraction.getDescription(), attraction.getCity().getId());
-            return attraction;
-        }
-        else {
-            throw new RuntimeException("could not add the attraction");
-        }
+        addTagsToAttraction(attractionId, attraction.getTagIds());
+
+        return findByIdFromDB(attractionId);
+//        if (attractionId != -1){
+//            //return new TouristAttraction(attractionId, attraction.getName(), attraction.getDescription(), attraction.getCity().getId());
+//            return findByIdFromDB(attractionId);
+//        }
+//        else {
+//            throw new RuntimeException("could not add the attraction");
+//        }
     }
 
     public TouristAttraction add(TouristAttraction attraction){

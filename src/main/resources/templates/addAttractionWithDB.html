@@ -18,8 +18,8 @@
   <br>
 
   <label>By:</label>
-  <select th:field="*{city}">
-    <option th:each="city : ${cities}" th:value="${city}" th:text="${city.name}"></option>
+  <select th:field="*{city_id}">
+    <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
   </select>
   <br>
 
