@@ -117,7 +117,7 @@ public class TouristRepository {
         }, keyHolder);
 
         int attractionId = keyHolder.getKey() != null ? keyHolder.getKey().intValue(): -1;
-
+        // update tags
         if (attractionId != -1){
             //return new TouristAttraction(attractionId, attraction.getName(), attraction.getDescription(), attraction.getCity().getId());
             return attraction;
@@ -168,6 +168,14 @@ public class TouristRepository {
         TouristAttraction found = findByName(name);
         if (found != null) {
             attractions.remove(found);
+        }
+    }
+
+    private void addTagsToAttraction(int attractionId, List<Integer> tagIds){
+        String sql = "INSERT INTO attraction_tag(attraction_id, tag_id) VALUES (?, ?)";
+
+        for (Integer tagId : tagIds){
+            jdbcTemplate.update(sql, attractionId, tagId);
         }
     }
 
