@@ -166,10 +166,15 @@ public class TouristRepository {
     }
 
     public void updateAttractionInDB(TouristAttraction attraction) {
-        String sql = "UDATE attraction SET name=?, description=?, city_id=? WHERE book_id=?";
+        String sql = "UPDATE attraction SET name=?, description=?, city_id=? WHERE attraction_id=?";
 
+        jdbcTemplate.update(sql,
+                attraction.getName(),
+                attraction.getDescription(),
+                attraction.getCity_id(),
+                attraction.getId());
 
-
+        updateTagsForAttraction(attraction.getId(), attraction.getTagIds());
 
     }
 
@@ -193,6 +198,11 @@ public class TouristRepository {
         for (Integer tagId : tagIds){
             jdbcTemplate.update(sql, attractionId, tagId);
         }
+    }
+
+    private void updateTagsForAttraction(int attractionId, List<Integer> tagIds){
+        deleteTagsForAttraction(attractionId);
+        addTagsToAttraction(attractionId, tagIds);
     }
 
 }
