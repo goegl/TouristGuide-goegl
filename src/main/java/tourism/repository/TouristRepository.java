@@ -105,28 +105,27 @@ public class TouristRepository {
     }
 
     public TouristAttraction addAttractionToDB(TouristAttraction attraction){
-        String sql = "INSERT INTO attraction(name, description,city_id) VALUES (?,?,?)";
+        String sql = "INSERT INTO attraction(name, description, city_id) VALUES (?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, attraction.getName());
             ps.setString(2, attraction.getDescription());
-            ps.setInt(3, attraction.getCity().getId());
+            ps.setInt(3, attraction.getCity_id());
             return ps;
         }, keyHolder);
 
         int attractionId = keyHolder.getKey() != null ? keyHolder.getKey().intValue(): -1;
         addTagsToAttraction(attractionId, attraction.getTagIds());
 
-        return findByIdFromDB(attractionId);
-//        if (attractionId != -1){
-//            //return new TouristAttraction(attractionId, attraction.getName(), attraction.getDescription(), attraction.getCity().getId());
-//            return findByIdFromDB(attractionId);
-//        }
-//        else {
-//            throw new RuntimeException("could not add the attraction");
-//        }
+        if (attractionId != -1){
+            //return new TouristAttraction(attractionId, attraction.getName(), attraction.getDescription(), attraction.getCity().getId());
+            return findByIdFromDB(attractionId);
+        }
+        else {
+            throw new RuntimeException("could not add the attraction");
+        }
     }
 
     public TouristAttraction add(TouristAttraction attraction){
@@ -174,6 +173,8 @@ public class TouristRepository {
     }
 
     private void addTagsToAttraction(int attractionId, List<Integer> tagIds){
+        if (tagIds == null) return;
+
         String sql = "INSERT INTO attraction_tag(attraction_id, tag_id) VALUES (?, ?)";
 
         for (Integer tagId : tagIds){

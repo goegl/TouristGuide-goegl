@@ -19,13 +19,18 @@
 
   <label>By:</label>
   <select th:field="*{city_id}">
-    <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
+    <option th:each="city : ${cities}"
+            th:value="${city.id}"
+            th:text="${city.name}">
+    </option>
   </select>
   <br>
 
   <label>Tags:</label>
   <div th:each="tag : ${tags}">
-    <input type="checkbox" th:field="*{tagIds}" th:value="${tag}">
+    <input type="checkbox"
+           th:field="*{tagIds}"
+           th:value="${tag.id}">
     <span th:text="${tag.name}"></span>
   </div>
   <br>
