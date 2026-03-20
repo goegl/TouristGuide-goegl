@@ -165,6 +165,17 @@ public class TouristRepository {
         existing.setTags(attraction.getTags());
     }
 
+    public void updateAttractionInDB(TouristAttraction attraction) {
+        String sql = "UPDATE attraction SET name=?, description=?, city_id=? WHERE attraction_id=?";
+
+        jdbcTemplate.update(sql,
+                attraction.getName(),
+                attraction.getDescription(),
+                attraction.getCity_id(),
+                attraction.getId());
+
+        updateTagsForAttraction(attraction.getId(), attraction.getTagIds());
+
     //DB-Method
     public void deleteAttractionFromDB(int attractionId){
         String sql = "DELETE FROM attraction WHERE attraction_id = ?";
@@ -178,6 +189,11 @@ public class TouristRepository {
         }
     }
 
+    private void deleteTagsForAttraction(int attractionId){
+        String sql = "DELETE FROM attraction_tag WHERE attraction_id = ?";
+        jdbcTemplate.update(sql, attractionId);
+    }
+
     private void addTagsToAttraction(int attractionId, List<Integer> tagIds){
         if (tagIds == null) return;
 
@@ -186,6 +202,21 @@ public class TouristRepository {
         for (Integer tagId : tagIds){
             jdbcTemplate.update(sql, attractionId, tagId);
         }
+    }
+
+    private void updateTagsForAttraction(int attractionId, List<Integer> tagIds){
+        deleteTagsForAttraction(attractionId);
+
+        List<Integer> uniqueTagIds = new ArrayList<>();
+
+        for (Integer id : tagIds) {
+            if (!uniqueTagIds.contains(id)) {
+                uniqueTagIds.add(id);
+            }
+        }
+
+
+        addTagsToAttraction(attractionId, tagIds);
     }
 
 }
