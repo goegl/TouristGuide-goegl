@@ -9,9 +9,11 @@ public class TouristAttraction {
     private List<String> tags;
 
     private int id;
-    private int city_id;
     private List<Tag> tagList;
     private City city;
+
+    private int city_id;
+    private List<Integer> tagIds;
 
     public TouristAttraction(String name, String description, String city, List<String> tags) {
         this.name = name;

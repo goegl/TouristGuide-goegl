@@ -22,7 +22,7 @@
     <option th:each="city : ${cities}" th:value="${city}" th:text="${city.name}"></option>
   </select>
   <br>
-<!--  <input type="hidden" th:field="${attraction.city_id}" th:value="${attraction.city.id}" required>-->
+
   <label>Tags:</label>
   <div th:each="tag : ${tags}">
     <input type="checkbox" th:field="*{tagList}" th:value="${tag}">
