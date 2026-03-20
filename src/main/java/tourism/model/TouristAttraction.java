@@ -93,4 +93,12 @@ public class TouristAttraction {
     public void setCity(City city) {
         this.city = city;
     }
+
+    public List<Integer> getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(List<Integer> tagIds) {
+        this.tagIds = tagIds;
+    }
 }
