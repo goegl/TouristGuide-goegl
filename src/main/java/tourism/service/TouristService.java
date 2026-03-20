@@ -29,6 +29,10 @@ public class TouristService {
         repository.update(attraction);
     }
 
+    public void updateAttractionInDB(TouristAttraction attraction){
+        repository.updateAttractionInDB(attraction);
+    }
+
     public void delete(String name) {
         repository.delete(name);
     }

@@ -202,6 +202,16 @@ public class TouristRepository {
 
     private void updateTagsForAttraction(int attractionId, List<Integer> tagIds){
         deleteTagsForAttraction(attractionId);
+
+        List<Integer> uniqueTagIds = new ArrayList<>();
+
+        for (Integer id : tagIds) {
+            if (!uniqueTagIds.contains(id)) {
+                uniqueTagIds.add(id);
+            }
+        }
+
+
         addTagsToAttraction(attractionId, tagIds);
     }
 

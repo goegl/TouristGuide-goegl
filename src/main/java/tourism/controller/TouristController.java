@@ -107,22 +107,43 @@ public class TouristController {
         return "redirect:/attractions";
     }
 
-    //EDIT FORM
-    @GetMapping("/{name}/edit")
-    public String showEditForm(@PathVariable String name, Model model){
-        TouristAttraction attraction = service.findByName(name);
-        model.addAttribute("attraction", attraction);
-        model.addAttribute("cities", service.getCities());
-        model.addAttribute("tags", service.getTags());
+//    //EDIT FORM
+//    @GetMapping("/{name}/edit")
+//    public String showEditForm(@PathVariable String name, Model model){
+//        TouristAttraction attraction = service.findByName(name);
+//        model.addAttribute("attraction", attraction);
+//        model.addAttribute("cities", service.getCities());
+//        model.addAttribute("tags", service.getTags());
+//
+//        return "editAttraction";
+//    }
+//
+//    // EDIT HANDLER
+//    @PostMapping("/update")
+//    public String updateAttraction(@ModelAttribute TouristAttraction attraction){
+//        service.update(attraction);
+//        return "redirect:/attractions";
+//    }
 
-        return "editAttraction";
+    //DB-Method
+    // FORM
+    @GetMapping("/{id}/edit")
+    public String showEditFormForEditingInDB(@PathVariable int id, Model model){
+        TouristAttraction attraction = service.findByIdFromDB(id);
+
+        model.addAttribute("attraction", attraction);
+        model.addAttribute("cities", service.getAllCitiesFromDB());
+        model.addAttribute("tags", service.getAllTagsFromDB());
+
+        return "editAttractionFromDB";
     }
 
+    //DB-Method
     // EDIT HANDLER
     @PostMapping("/update")
-    public String updateAttraction(@ModelAttribute TouristAttraction attraction){
-        service.update(attraction);
-        return "redirect:/attractions";
+    public String updateAttractionInDB(@ModelAttribute TouristAttraction attraction){
+        service.updateAttractionInDB(attraction);
+        return "redirect:/attractions/list";
     }
 
     @GetMapping("/db")
