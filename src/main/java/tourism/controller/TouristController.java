@@ -64,22 +64,42 @@ public class TouristController {
     }
 
     // ADD FORM
+//    @GetMapping("/add")
+//    public String showAddForm(Model model) {
+//        model.addAttribute("attraction", new TouristAttraction());
+//
+//        model.addAttribute("cities", service.getCities());
+//        model.addAttribute("tags", service.getTags());
+//
+//        return "addAttraction";
+//    }
+
+    //DB-Method
     @GetMapping("/add")
-    public String showAddForm(Model model) {
+    public String showAddFormWithDB(Model model) {
         model.addAttribute("attraction", new TouristAttraction());
 
-        model.addAttribute("cities", service.getCities());
-        model.addAttribute("tags", service.getTags());
+        model.addAttribute("cities", service.getAllCitiesFromDB());
+        model.addAttribute("tags", service.getAllTagsFromDB());
 
-        return "addAttraction";
+        return "addAttractionWithDB";
     }
 
     // ADD HANDLER
+//    @PostMapping("/save")
+//    public String saveAttraction(@ModelAttribute TouristAttraction attraction) {
+//        service.add(attraction);
+//        return "redirect:/attractions";
+//    }
+
+    //DB-Method
     @PostMapping("/save")
-    public String saveAttraction(@ModelAttribute TouristAttraction attraction) {
-        service.add(attraction);
-        return "redirect:/attractions";
+    public String saveAttractionToDB(@ModelAttribute TouristAttraction attraction) {
+        service.addAttractionToDB(attraction);
+        return "redirect:/attractions/list";
     }
+
+
 
     @PostMapping("/delete/{name}")
     public String deleteAttraction(@PathVariable String name){

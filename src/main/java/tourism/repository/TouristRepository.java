@@ -105,7 +105,7 @@ public class TouristRepository {
     }
 
     public TouristAttraction addAttractionToDB(TouristAttraction attraction){
-        String sql = "INSERT INTO attraction(name, description,city_id) VALUES (?,?,?)";
+        String sql = "INSERT INTO attraction(name, description, city_id) VALUES (?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
@@ -117,9 +117,11 @@ public class TouristRepository {
         }, keyHolder);
 
         int attractionId = keyHolder.getKey() != null ? keyHolder.getKey().intValue(): -1;
+        addTagsToAttraction(attractionId, attraction.getTagIds());
 
         if (attractionId != -1){
-            return new TouristAttraction(attractionId, attraction.getName(), attraction.getDescription(), attraction.getCity_id());
+            //return new TouristAttraction(attractionId, attraction.getName(), attraction.getDescription(), attraction.getCity().getId());
+            return findByIdFromDB(attractionId);
         }
         else {
             throw new RuntimeException("could not add the attraction");
@@ -167,6 +169,16 @@ public class TouristRepository {
         TouristAttraction found = findByName(name);
         if (found != null) {
             attractions.remove(found);
+        }
+    }
+
+    private void addTagsToAttraction(int attractionId, List<Integer> tagIds){
+        if (tagIds == null) return;
+
+        String sql = "INSERT INTO attraction_tag(attraction_id, tag_id) VALUES (?, ?)";
+
+        for (Integer tagId : tagIds){
+            jdbcTemplate.update(sql, attractionId, tagId);
         }
     }
 
