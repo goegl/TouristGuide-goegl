@@ -167,7 +167,7 @@ public class TouristRepository {
 
     //DB-Method
     public void deleteAttractionFromDB(int attractionId){
-        String sql = "DELETE FROM attraction WHERE attraction_id=?";
+        String sql = "DELETE FROM attraction WHERE attraction_id = ?";
         jdbcTemplate.update(sql, attractionId);
     }
 
