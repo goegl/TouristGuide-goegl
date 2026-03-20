@@ -165,6 +165,14 @@ public class TouristRepository {
         existing.setTags(attraction.getTags());
     }
 
+    public void updateAttractionInDB(TouristAttraction attraction) {
+        String sql = "UDATE attraction SET name=?, description=?, city_id=? WHERE book_id=?";
+
+
+
+
+    }
+
     public void delete(String name){
         TouristAttraction found = findByName(name);
         if (found != null) {
