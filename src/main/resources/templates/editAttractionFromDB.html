@@ -8,7 +8,6 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header">...</div>
-<h1 th:text="*{name}"></h1>
 
 <form th:action="@{/attractions/update}" th:object="${attraction}" method="post">
 
@@ -43,7 +42,7 @@
     <button type="submit">Opdater</button>
 </form>
 
-<button><a href="/attractions/list">Tilbage</a></button>
+<button><a href="/attractions">Tilbage</a></button>
 
 </body>
 </html>
