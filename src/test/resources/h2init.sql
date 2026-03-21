@@ -1,12 +1,3 @@
-create database if not exists tourist_guide CHARACTER SET utf8mb4;
-
-use tourist_guide;
-
-drop table if exists attraction_tag;
-drop table if exists attraction;
-drop table if exists tag;
-drop table if exists city;
-
 
 create table city
 (
