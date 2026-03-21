@@ -29,4 +29,13 @@ public class RepositoryTest {
         assertThat(all.get(0).getName()).isEqualTo("Dolphin Show");
         assertThat(all.get(1).getName()).isEqualTo("Cat Cafe");
     }
+    //Need findByIdTest
+
+    //Need updateAttractionTest
+
+    //Need getAllTagsTest
+
+    //Need createAttractionTest
+
+    //Need deleteAttractionTest
 }
