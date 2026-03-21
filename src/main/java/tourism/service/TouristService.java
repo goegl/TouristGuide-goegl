@@ -16,26 +16,19 @@ public class TouristService {
         this.repository = repository;
     }
 
-    public TouristAttraction add(TouristAttraction attraction) {
-        repository.add(attraction);
-        return attraction;
-    }
+
 
     public TouristAttraction addAttractionToDB(TouristAttraction attraction){
         return repository.addAttractionToDB(attraction);
     }
 
-    public void update(TouristAttraction attraction) {
-        repository.update(attraction);
-    }
+
 
     public void updateAttractionInDB(TouristAttraction attraction){
         repository.updateAttractionInDB(attraction);
     }
 
-    public void delete(String name) {
-        repository.delete(name);
-    }
+
 
     //DB-Method
     public TouristAttraction deleteAttractionFromDB(int attractionId){
@@ -44,25 +37,11 @@ public class TouristService {
         return attractionToBeDeleted;
     }
 
-    public List<String> getCities() {
-        return repository.getCities();
-    }
-
-    public List<String> getTags() {
-        return repository.getTags();
-    }
-    public TouristAttraction findByName(String name){
-        return repository.findByName(name);
-    }
 
     public TouristAttraction findByIdFromDB(int id){ return repository.findByIdFromDB(id);}
 
     public List<TouristAttraction> getAllAttractionsFromDB(){
         return repository.getAttractionsFromDB();
-    }
-
-    public List<TouristAttraction> getAllAttractions(){
-        return repository.getAttractions();
     }
 
     public List<City> getAllCitiesFromDB(){
