@@ -16,61 +16,38 @@ public class TouristService {
         this.repository = repository;
     }
 
-    public TouristAttraction add(TouristAttraction attraction) {
-        repository.add(attraction);
-        return attraction;
+
+    public TouristAttraction createAttraction(TouristAttraction attraction) {
+        return repository.createAttraction(attraction);
     }
 
-    public TouristAttraction addAttractionToDB(TouristAttraction attraction){
-        return repository.addAttractionToDB(attraction);
+
+    public void updateAttraction(TouristAttraction attraction) {
+        repository.updateAttraction(attraction);
     }
 
-    public void update(TouristAttraction attraction) {
-        repository.update(attraction);
-    }
 
-    public void updateAttractionInDB(TouristAttraction attraction){
-        repository.updateAttractionInDB(attraction);
-    }
-
-    public void delete(String name) {
-        repository.delete(name);
-    }
-
-    //DB-Method
-    public TouristAttraction deleteAttractionFromDB(int attractionId){
-        TouristAttraction attractionToBeDeleted = repository.findByIdFromDB(attractionId);
-        repository.deleteAttractionFromDB(attractionId);
+    public TouristAttraction deleteAttraction(int attractionId) {
+        TouristAttraction attractionToBeDeleted = repository.findAttractionById(attractionId);
+        repository.deleteAttraction(attractionId);
         return attractionToBeDeleted;
     }
 
-    public List<String> getCities() {
-        return repository.getCities();
+
+    public TouristAttraction findAttractionById(int attractionId) {
+        return repository.findAttractionById(attractionId);
     }
 
-    public List<String> getTags() {
-        return repository.getTags();
-    }
-    public TouristAttraction findByName(String name){
-        return repository.findByName(name);
+    public List<TouristAttraction> getAllAttractions() {
+        return repository.getAllAttractions();
     }
 
-    public TouristAttraction findByIdFromDB(int id){ return repository.findByIdFromDB(id);}
-
-    public List<TouristAttraction> getAllAttractionsFromDB(){
-        return repository.getAttractionsFromDB();
+    public List<City> getAllCities() {
+        return repository.getAllCities();
     }
 
-    public List<TouristAttraction> getAllAttractions(){
-        return repository.getAttractions();
-    }
-
-    public List<City> getAllCitiesFromDB(){
-        return repository.getCitiesFromDB();
-    }
-
-    public List<Tag> getAllTagsFromDB(){
-        return repository.getTagsFromDB();
+    public List<Tag> getAllTags() {
+        return repository.getAllTags();
     }
 
 
