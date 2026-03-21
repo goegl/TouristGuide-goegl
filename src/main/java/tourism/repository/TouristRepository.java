@@ -39,8 +39,8 @@ public class TouristRepository {
         attraction.setCity_id(rs.getInt("city_id"));
         attraction.setName(rs.getString("name"));
         attraction.setDescription(rs.getString("description"));
-        attraction.setCity(getCityByAttractionIdFromDB(attraction.getId()));
-        attraction.setTagList(getTagsByAttractionIdFromDB(attraction.getId()));
+        attraction.setCity(getCityByAttractionId(attraction.getId()));
+        attraction.setTagList(getTagsByAttractionId(attraction.getId()));
         return attraction;
     };
 
@@ -49,7 +49,7 @@ public class TouristRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<TouristAttraction> getAttractionsFromDB() {
+    public List<TouristAttraction> getAllAttractions() {
         String sql = "SELECT * FROM attraction";
 
         return jdbcTemplate.query(sql, attractionRowMapper);
@@ -57,12 +57,12 @@ public class TouristRepository {
     }
 
 
-    public List<City> getCitiesFromDB() {
+    public List<City> getAllCities() {
         String sql = "SELECT * FROM city";
         return jdbcTemplate.query(sql, cityRowMapper);
     }
 
-    public City getCityByAttractionIdFromDB(int attractionId) {
+    public City getCityByAttractionId(int attractionId) {
         String sql = """
                 SELECT city.city_id, city.name
                 FROM city
@@ -75,12 +75,12 @@ public class TouristRepository {
     }
 
 
-    public List<Tag> getTagsFromDB() {
+    public List<Tag> getAllTags() {
         String sql = "SELECT * FROM tag";
         return jdbcTemplate.query(sql, tagRowMapper);
     }
 
-    public List<Tag> getTagsByAttractionIdFromDB(int attractionId) {
+    public List<Tag> getTagsByAttractionId(int attractionId) {
         String sql = """
                 SELECT tag.tag_id, tag.name
                 FROM tag 
@@ -92,7 +92,7 @@ public class TouristRepository {
     }
 
 
-    public TouristAttraction addAttractionToDB(TouristAttraction attraction) {
+    public TouristAttraction createAttraction(TouristAttraction attraction) {
         String sql = "INSERT INTO attraction(name, description, city_id) VALUES (?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -109,22 +109,20 @@ public class TouristRepository {
 
         if (attractionId != -1) {
             //return new TouristAttraction(attractionId, attraction.getName(), attraction.getDescription(), attraction.getCity().getId());
-            return findByIdFromDB(attractionId);
+            return findAttractionById(attractionId);
         } else {
             throw new RuntimeException("could not add the attraction");
         }
     }
 
 
-    public TouristAttraction findByIdFromDB(int id) {
+    public TouristAttraction findAttractionById(int attractionId) {
         String sql = "SELECT * FROM attraction WHERE attraction_id = ?";
-        return jdbcTemplate.queryForObject(sql, attractionRowMapper, id);
+        return jdbcTemplate.queryForObject(sql, attractionRowMapper, attractionId);
     }
 
 
-
-
-    public void updateAttractionInDB(TouristAttraction attraction) {
+    public void updateAttraction(TouristAttraction attraction) {
         String sql = "UPDATE attraction SET name=?, description=?, city_id=? WHERE attraction_id=?";
 
         jdbcTemplate.update(sql,
@@ -136,8 +134,7 @@ public class TouristRepository {
         updateTagsForAttraction(attraction.getId(), attraction.getTagIds());
     }
 
-    //DB-Method
-    public void deleteAttractionFromDB(int attractionId) {
+    public void deleteAttraction(int attractionId) {
         String sql = "DELETE FROM attraction WHERE attraction_id = ?";
         jdbcTemplate.update(sql, attractionId);
     }

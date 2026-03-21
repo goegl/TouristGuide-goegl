@@ -17,77 +17,67 @@ public class TouristController {
     }
 
 
-    //DB-Method
     @GetMapping()
-    public String listAttractionsFromDB(Model model) {
-        model.addAttribute("attractions", service.getAllAttractionsFromDB());
-        return "attractionListFromDB";
+    public String showAllAttractions(Model model) {
+        model.addAttribute("attractions", service.getAllAttractions());
+        return "attraction-list";
     }
 
 
-    //DB-Method
-    @GetMapping("/{id}")
-    public String findAttractionByIdFromDB(@PathVariable int id, Model model) {
-        model.addAttribute("attraction", service.findByIdFromDB(id));
-        return "findAttractionByIdFromDB";
+    @GetMapping("/{attractionId}")
+    public String showAttraction(@PathVariable int attractionId, Model model) {
+        model.addAttribute("attraction", service.findAttractionById(attractionId));
+        return "attraction-details";
     }
 
 
-    //DB-Method
-    @GetMapping("/{id}/tags")
-    public String showTagsFromDB(@PathVariable int id, Model model) {
-        TouristAttraction attraction = service.findByIdFromDB(id);
+    @GetMapping("/{attractionId}/tags")
+    public String showTagsForAttraction(@PathVariable int attractionId, Model model) {
+        TouristAttraction attraction = service.findAttractionById(attractionId);
         model.addAttribute("attraction", attraction);
-        return "tagsFromDB";
+        return "attraction-tags";
     }
 
 
-    //DB-Method
     @GetMapping("/add")
-    public String showAddFormWithDB(Model model) {
+    public String showAddForm(Model model) {
         model.addAttribute("attraction", new TouristAttraction());
 
-        model.addAttribute("cities", service.getAllCitiesFromDB());
-        model.addAttribute("tags", service.getAllTagsFromDB());
+        model.addAttribute("cities", service.getAllCities());
+        model.addAttribute("tags", service.getAllTags());
 
-        return "addAttractionWithDB";
+        return "attraction-add-form";
     }
 
 
-    //DB-Method
     @PostMapping("/save")
-    public String saveAttractionToDB(@ModelAttribute TouristAttraction attraction) {
-        service.addAttractionToDB(attraction);
+    public String saveAttraction(@ModelAttribute TouristAttraction attraction) {
+        service.createAttraction(attraction);
         return "redirect:/attractions";
     }
 
 
-    //DB-Method
-    @GetMapping("/delete/{id}")
-    public String deleteAttractionFromDB(@PathVariable int id) {
-        service.deleteAttractionFromDB(id);
+    @GetMapping("/delete/{attractionId}")
+    public String deleteAttraction(@PathVariable int attractionId) {
+        service.deleteAttraction(attractionId);
         return "redirect:/attractions";
     }
 
 
-    //DB-Method
-    // FORM
-    @GetMapping("/{id}/edit")
-    public String showEditFormForEditingInDB(@PathVariable int id, Model model) {
-        TouristAttraction attraction = service.findByIdFromDB(id);
+    @GetMapping("/{attractionId}/edit")
+    public String showEditForm(@PathVariable int attractionId, Model model) {
+        TouristAttraction attraction = service.findAttractionById(attractionId);
 
         model.addAttribute("attraction", attraction);
-        model.addAttribute("cities", service.getAllCitiesFromDB());
-        model.addAttribute("tags", service.getAllTagsFromDB());
+        model.addAttribute("cities", service.getAllCities());
+        model.addAttribute("tags", service.getAllTags());
 
-        return "editAttractionFromDB";
+        return "attraction-edit";
     }
 
-    //DB-Method
-    // EDIT HANDLER
     @PostMapping("/update")
-    public String updateAttractionInDB(@ModelAttribute TouristAttraction attraction) {
-        service.updateAttractionInDB(attraction);
+    public String updateAttraction(@ModelAttribute TouristAttraction attraction) {
+        service.updateAttraction(attraction);
         return "redirect:/attractions";
     }
 
