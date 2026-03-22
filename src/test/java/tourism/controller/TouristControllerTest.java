@@ -77,28 +77,29 @@ class TouristControllerTest {
                 .andExpect(view().name("attraction-add-form"));
     }
 
-//    @Test
-//    void shouldSaveAttraction() throws Exception {
-//        TouristAttraction touristAttraction = new TouristAttraction(1, "Tivoli", "En forlystelsespark", 1);
-//
-//        when(service.createAttraction(any(TouristAttraction.class))).thenReturn(touristAttraction);
-//
-//        mockMvc.perform(post("/attractions/save")
-//                        .param("name", "Tivoli")
-//                        .param("description", "En forlystelsespark")
-//                        .param("city", "København")
-//                        .param("tags", String.valueOf(List.of("Sjovt", "Klassisk"))))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(view().name("redirect:/attraction-list"));
-//
-//        ArgumentCaptor<TouristAttraction> captor = ArgumentCaptor.forClass(TouristAttraction.class);
-//        verify(service).createAttraction(captor.capture());
-//        TouristAttraction captured = captor.getValue();
-//        assertEquals("Tivoli", captured.getName());
-//        assertEquals("En forlystelsespark", captured.getDescription());
-//        assertEquals("København", captured.getCityOld());
-//        assertNotNull(captured.getTags());
-//    }
+    @Test
+    void shouldSaveAttraction() throws Exception {
+        TouristAttraction touristAttraction = new TouristAttraction(1, "Tivoli", "En forlystelsespark", 1);
+        touristAttraction.setTagIds(List.of(1, 2));
+        touristAttraction.setCity(new City(1, "København"));
+
+        when(service.createAttraction(any(TouristAttraction.class))).thenReturn(touristAttraction);
+
+        mockMvc.perform(post("/attractions/save")
+                        .param("name", "Tivoli")
+                        .param("description", "En forlystelsespark")
+                        .param("attractionId", String.valueOf(1))
+                        .param("city_id", String.valueOf(1)))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/attractions"));
+
+        ArgumentCaptor<TouristAttraction> captor = ArgumentCaptor.forClass(TouristAttraction.class);
+        verify(service).createAttraction(captor.capture());
+        TouristAttraction captured = captor.getValue();
+        assertEquals("Tivoli", captured.getName());
+        assertEquals("En forlystelsespark", captured.getDescription());
+        assertEquals("København", captured.getCity().getName());
+    }
 
 //    @Test
 //    void shouldDeleteAttraction() throws Exception {
