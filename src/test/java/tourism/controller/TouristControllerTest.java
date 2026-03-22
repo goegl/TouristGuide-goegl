@@ -1,61 +1,63 @@
-//package tourism.controller;
-//
-//import org.junit.jupiter.api.AfterEach;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.ArgumentCaptor;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-//import org.springframework.test.context.bean.override.mockito.MockitoBean;
-//import org.springframework.test.web.servlet.MockMvc;
-//import tourism.model.TouristAttraction;
-//import tourism.service.TouristService;
-//
-//import java.util.List;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.Mockito.*;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-//
-//@WebMvcTest(TouristController.class)
-//class TouristControllerTest {
-//
-//    @Autowired
-//    private MockMvc mockMvc;
-//
-//    @MockitoBean
-//    private TouristService service;
-//
-//    @BeforeEach
-//    void setUp() {
-//    }
-//
-//    @AfterEach
-//    void tearDown() {
-//    }
-//
-//    @Test
-//    void shouldListAttractions() throws Exception {
-//        mockMvc.perform(get("/attractions"))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("attractionList"));
-//    }
-//
-//    @Test
-//    void shouldFindAttractionByName() throws Exception {
-//        TouristAttraction touristAttraction = new TouristAttraction();
-//        when(service.findByName("HoolaHoopRink")).thenReturn(touristAttraction);
-//
-//        mockMvc.perform(get("/attractions/HoolaHoopRink"))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("findAttractionByName"))
-//                .andExpect(model().attribute("attraction", touristAttraction));
-//        verify(service).findByName("HoolaHoopRink");
-//    }
-//
+package tourism.controller;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+import tourism.model.City;
+import tourism.model.TouristAttraction;
+import tourism.service.TouristService;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@WebMvcTest(TouristController.class)
+class TouristControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockitoBean
+    private TouristService service;
+
+    @BeforeEach
+    void setUp() {
+    }
+
+    @AfterEach
+    void tearDown() {
+    }
+
+    @Test
+    void shouldListAttractions() throws Exception {
+        mockMvc.perform(get("/attractions"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("attraction-list"));
+    }
+
+    @Test
+    void shouldFindAttractionById() throws Exception {
+        TouristAttraction touristAttraction = new TouristAttraction(1, "HoolaHoopRink", "A rink where you hoolahoop", 1);
+        touristAttraction.setCity(new City(1, "Chicago"));
+        when(service.findAttractionById(1)).thenReturn(touristAttraction);
+
+        mockMvc.perform(get("/attractions/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("attraction-details"))
+                .andExpect(model().attribute("attraction", touristAttraction));
+        verify(service).findAttractionById(1);
+    }
+
 //    @Test
 //    void shouldShowTags() throws Exception {
 //        TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
@@ -140,5 +142,5 @@
 //        assertEquals(List.of("Sjovt", "Klassisk"), captured.getTags());
 //        assertNotNull(captured.getTags());
 //    }
-//}
-//
+}
+
