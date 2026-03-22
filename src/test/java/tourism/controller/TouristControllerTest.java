@@ -9,6 +9,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import tourism.model.City;
+import tourism.model.Tag;
 import tourism.model.TouristAttraction;
 import tourism.service.TouristService;
 
@@ -58,27 +59,29 @@ class TouristControllerTest {
         verify(service).findAttractionById(1);
     }
 
-//    @Test
-//    void shouldShowTags() throws Exception {
-//        TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
-//        when(service.findByName("Tivoli")).thenReturn(touristAttraction);
-//        mockMvc.perform(get("/attractions/Tivoli/tags"))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("tags"));
-//        verify(service).findByName("Tivoli");
-//    }
-//
-//    @Test
-//    void shouldShowAddForm() throws Exception {
-//        mockMvc.perform(get("/attractions/add"))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("addAttraction"));
-//    }
-//
+    @Test
+    void shouldShowTags() throws Exception {
+        TouristAttraction touristAttraction = new TouristAttraction(1, "HoolaHoopRink", "Great fun with friends", 1);
+
+        when(service.findAttractionById(1)).thenReturn(touristAttraction);
+        mockMvc.perform(get("/attractions/1/tags"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("attraction-tags"));
+        verify(service).findAttractionById(1);
+    }
+
+    @Test
+    void shouldShowAddForm() throws Exception {
+        mockMvc.perform(get("/attractions/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("attraction-add-form"));
+    }
+
 //    @Test
 //    void shouldSaveAttraction() throws Exception {
-//        TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
-//        when(service.add(any(TouristAttraction.class))).thenReturn(touristAttraction);
+//        TouristAttraction touristAttraction = new TouristAttraction(1, "Tivoli", "En forlystelsespark", 1);
+//
+//        when(service.createAttraction(any(TouristAttraction.class))).thenReturn(touristAttraction);
 //
 //        mockMvc.perform(post("/attractions/save")
 //                        .param("name", "Tivoli")
@@ -86,17 +89,17 @@ class TouristControllerTest {
 //                        .param("city", "København")
 //                        .param("tags", String.valueOf(List.of("Sjovt", "Klassisk"))))
 //                .andExpect(status().is3xxRedirection())
-//                .andExpect(view().name("redirect:/attractions"));
+//                .andExpect(view().name("redirect:/attraction-list"));
 //
 //        ArgumentCaptor<TouristAttraction> captor = ArgumentCaptor.forClass(TouristAttraction.class);
-//        verify(service).add(captor.capture());
+//        verify(service).createAttraction(captor.capture());
 //        TouristAttraction captured = captor.getValue();
 //        assertEquals("Tivoli", captured.getName());
 //        assertEquals("En forlystelsespark", captured.getDescription());
 //        assertEquals("København", captured.getCityOld());
 //        assertNotNull(captured.getTags());
 //    }
-//
+
 //    @Test
 //    void shouldDeleteAttraction() throws Exception {
 //        mockMvc.perform(post("/attractions/delete/Tivoli"))
