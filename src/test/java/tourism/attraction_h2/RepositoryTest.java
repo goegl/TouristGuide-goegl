@@ -30,6 +30,17 @@ public class RepositoryTest {
         assertThat(all.get(1).getName()).isEqualTo("Cat Cafe");
     }
     //Need findByIdTest
+    @Test
+    void findById(){
+        TouristAttraction attraction = repository.findAttractionById(1);
+        assertThat(attraction.getId()).isEqualTo(1);
+        assertThat(attraction.getName()).isEqualTo("Dolphin Show");
+        assertThat(attraction.getDescription()).isEqualTo("A show with dolphins");
+        assertThat(attraction.getCity_id()).isEqualTo(1);
+        assertThat(attraction.getTagList()).isNotNull();
+        assertThat(attraction.getCity()).isNotNull();
+        assertThat(attraction.getCity().getName()).isEqualTo(repository.getAllCities().getFirst().getName());
+    }
 
     //Need updateAttractionTest
 
