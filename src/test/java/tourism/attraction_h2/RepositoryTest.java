@@ -83,7 +83,15 @@ public class RepositoryTest {
         assertThat(repository.findAttractionById(3).getName()).isEqualTo("Whale Show");
         assertThat(repository.findAttractionById(3).getDescription()).isEqualTo("A Show With Whales");
         assertThat(repository.findAttractionById(3).getCity().getName()).isEqualTo("København");
+        assertThat(repository.findAttractionById(3).getTagIds()).isEqualTo(List.of(1, 2));
+        assertThat(repository.findAttractionById(3).getTagList().getFirst().getName()).isEqualTo("Cafe");
     }
 
     //Need deleteAttractionTest
+    @Test
+    void shouldDeleteAttraction(){
+        repository.deleteAttraction(1);
+        repository.deleteAttraction(2);
+        assertThat(repository.getAllAttractions()).hasSize(0);
+    }
 }
