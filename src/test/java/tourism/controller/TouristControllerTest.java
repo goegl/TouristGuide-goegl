@@ -84,14 +84,16 @@ class TouristControllerTest {
         touristAttraction.setName("Tivoli");
         touristAttraction.setDescription("En forlystelsespark");
         touristAttraction.setCity_id(1);
+        touristAttraction.setTagIds(List.of(1,2));
 
         when(service.createAttraction(any(TouristAttraction.class))).thenReturn(touristAttraction);
 
         mockMvc.perform(post("/attractions/save")
                 .param("name", "Tivoli")
                 .param("description", "En forlystelsespark")
-                        .param("id","1")
-                .param("city_id", "1"))
+                .param("id","1")
+                .param("city_id", "1")
+                .param("tagIds", "1","2"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/attractions"));
 
@@ -102,6 +104,7 @@ class TouristControllerTest {
         assertEquals("Tivoli", captured.getName());
         assertEquals("En forlystelsespark", captured.getDescription());
         assertEquals(1, captured.getCity_id());
+        assertEquals(List.of(1,2), captured.getTagIds());
     }
 
     @Test
