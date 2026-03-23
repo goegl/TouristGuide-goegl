@@ -32,7 +32,6 @@ public class RepositoryTest {
     }
 
     //Need findByIdTest
-    //tag_ids list is empty for some reason
     @Test
     void shouldFindById() {
         TouristAttraction attraction = repository.findAttractionById(1);
