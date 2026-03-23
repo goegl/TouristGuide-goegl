@@ -29,10 +29,11 @@ public class RepositoryTest {
         assertThat(all.get(0).getName()).isEqualTo("Dolphin Show");
         assertThat(all.get(1).getName()).isEqualTo("Cat Cafe");
     }
+
     //Need findByIdTest
     //tag_ids list is empty for some reason
     @Test
-    void shouldFindById(){
+    void shouldFindById() {
         TouristAttraction attraction = repository.findAttractionById(1);
         assertThat(attraction.getId()).isEqualTo(1);
         assertThat(attraction.getName()).isEqualTo("Dolphin Show");
@@ -41,15 +42,20 @@ public class RepositoryTest {
         assertThat(attraction.getTagList()).isNotNull();
         assertThat(attraction.getCity().getName()).isEqualTo(repository.getAllCities().getFirst().getName());
         assertThat(attraction.getTagList().getFirst().getName()).isEqualTo(repository.getAllTags().get(4).getName());
+        assertThat(attraction.getTagIds()).isEqualTo(List.of(4, 5));
     }
 
     //Need updateAttractionTest
     @Test
-    void shouldUpdateAttraction(){
-        TouristAttraction attraction = repository.findAttractionById(1);
-        attraction.setName("Whale Show");
-        repository.updateAttraction(attraction);
+    void shouldUpdateAttraction() {
+        TouristAttraction updatedAttraction = new TouristAttraction(1, "Whale Show", "A Show With Whales", 2);
+        updatedAttraction.setTagIds(List.of(1, 2));
+        updatedAttraction.setCity(repository.getAllCities().get(2));
+        repository.updateAttraction(updatedAttraction);
         assertThat(repository.findAttractionById(1).getName()).isEqualTo("Whale Show");
+        assertThat(repository.findAttractionById(1).getDescription()).isEqualTo("A Show With Whales");
+        assertThat(updatedAttraction.getCity().getName()).isEqualTo(repository.getAllCities().get(2).getName());
+        assertThat(repository.findAttractionById(1).getTagIds()).isEqualTo(List.of(1, 2));
     }
 
     //Need getAllTagsTest

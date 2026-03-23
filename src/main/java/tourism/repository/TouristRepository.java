@@ -41,6 +41,11 @@ public class TouristRepository {
         attraction.setDescription(rs.getString("description"));
         attraction.setCity(getCityByAttractionId(attraction.getId()));
         attraction.setTagList(getTagsByAttractionId(attraction.getId()));
+        List<Integer> tagIdsToAdd = new ArrayList<>();
+        for (Tag tag : attraction.getTagList()){
+            tagIdsToAdd.add(tag.getId());
+        }
+        attraction.setTagIds(tagIdsToAdd);
         return attraction;
     };
 
