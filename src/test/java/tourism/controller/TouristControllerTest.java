@@ -104,14 +104,14 @@ class TouristControllerTest {
         assertEquals(1, captured.getCity_id());
     }
 
-//    @Test
-//    void shouldDeleteAttraction() throws Exception {
-//        mockMvc.perform(post("/attractions/delete/Tivoli"))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(view().name("redirect:/attractions"));
-//
-//        verify(service).delete("Tivoli");
-//    }
+    @Test
+    void shouldDeleteAttraction() throws Exception {
+        mockMvc.perform(get("/attractions/delete/3"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/attractions"));
+
+        verify(service).deleteAttraction(3);
+    }
 //
 //    @Test
 //    void shouldShowEditForm() throws Exception {
