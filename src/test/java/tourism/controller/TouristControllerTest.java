@@ -112,21 +112,25 @@ class TouristControllerTest {
 
         verify(service).deleteAttraction(3);
     }
-//
-//    @Test
-//    void shouldShowEditForm() throws Exception {
-//        TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
-//
-//        when(service.findByName("Tivoli")).thenReturn(touristAttraction);
-//
-//        mockMvc.perform(get("/attractions/Tivoli/edit"))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("editAttraction"))
-//                .andExpect(model().attribute("attraction", touristAttraction));
-//        verify(service).findByName("Tivoli");
-//
-//    }
-//
+
+
+    @Test
+    void shouldShowEditForm() throws Exception {
+        TouristAttraction touristAttraction = new TouristAttraction();
+        touristAttraction.setId(1);
+        touristAttraction.setName("Tivoli");
+        touristAttraction.setDescription("En forlystelsespark");
+        touristAttraction.setCity_id(1);
+
+        when(service.findAttractionById(1)).thenReturn(touristAttraction);
+
+        mockMvc.perform(get("/attractions/1/edit"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("attraction-edit"))
+                .andExpect(model().attribute("attraction", touristAttraction));
+        verify(service).findAttractionById(1);
+    }
+
 //    @Test
 //    void shouldUpdateAttraction() throws Exception {
 //        TouristAttraction touristAttraction = new TouristAttraction("Tivoli", "En forlystelsespark", "København", List.of("Sjovt", "Klassisk"));
