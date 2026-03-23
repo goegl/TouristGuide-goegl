@@ -42,7 +42,7 @@ public class RepositoryTest {
         assertThat(attraction.getCity_id()).isEqualTo(1);
         assertThat(attraction.getTagList()).isNotNull();
         assertThat(attraction.getCity().getName()).isEqualTo(repository.getAllCities().getFirst().getName());
-        assertThat(attraction.getTagList().getFirst().getName()).isEqualTo(repository.getAllTags().get(4).getName());
+        assertThat(attraction.getTagList().getFirst().getName()).isEqualTo(repository.getAllTags().get(3).getName());
         assertThat(attraction.getTagIds()).isEqualTo(List.of(4, 5));
     }
 
@@ -69,6 +69,21 @@ public class RepositoryTest {
     }
 
     //Need createAttractionTest
+    @Test
+    void shouldCreateAttraction(){
+        TouristAttraction newAttraction = new TouristAttraction();
+        newAttraction.setName("Whale Show");
+        newAttraction.setDescription("A Show With Whales");
+        newAttraction.setCity_id(2);
+        newAttraction.setTagIds(List.of(1, 2));
+        newAttraction.setTagList(List.of(repository.getAllTags().get(0), repository.getAllTags().get(1)));
+        newAttraction.setCity(repository.getAllCities().get(1));
+
+        repository.createAttraction(newAttraction);
+        assertThat(repository.findAttractionById(3).getName()).isEqualTo("Whale Show");
+        assertThat(repository.findAttractionById(3).getDescription()).isEqualTo("A Show With Whales");
+        assertThat(repository.findAttractionById(3).getCity().getName()).isEqualTo("København");
+    }
 
     //Need deleteAttractionTest
 }

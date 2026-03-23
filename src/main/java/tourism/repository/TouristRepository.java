@@ -63,7 +63,7 @@ public class TouristRepository {
 
 
     public List<City> getAllCities() {
-        String sql = "SELECT * FROM city";
+        String sql = "SELECT * FROM city ORDER BY city_id";
         return jdbcTemplate.query(sql, cityRowMapper);
     }
 
