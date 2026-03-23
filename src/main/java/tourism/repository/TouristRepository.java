@@ -81,7 +81,7 @@ public class TouristRepository {
 
 
     public List<Tag> getAllTags() {
-        String sql = "SELECT * FROM tag";
+        String sql = "SELECT * FROM tag ORDER BY tag_id";
         return jdbcTemplate.query(sql, tagRowMapper);
     }
 

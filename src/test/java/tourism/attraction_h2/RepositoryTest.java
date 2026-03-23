@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import tourism.model.Tag;
 import tourism.model.TouristAttraction;
 import tourism.repository.TouristRepository;
 
@@ -50,15 +51,22 @@ public class RepositoryTest {
     void shouldUpdateAttraction() {
         TouristAttraction updatedAttraction = new TouristAttraction(1, "Whale Show", "A Show With Whales", 2);
         updatedAttraction.setTagIds(List.of(1, 2));
-        updatedAttraction.setCity(repository.getAllCities().get(2));
+        updatedAttraction.setCity(repository.getAllCities().get(1));
         repository.updateAttraction(updatedAttraction);
         assertThat(repository.findAttractionById(1).getName()).isEqualTo("Whale Show");
         assertThat(repository.findAttractionById(1).getDescription()).isEqualTo("A Show With Whales");
-        assertThat(updatedAttraction.getCity().getName()).isEqualTo(repository.getAllCities().get(2).getName());
+        assertThat(updatedAttraction.getCity().getName()).isEqualTo("København");
         assertThat(repository.findAttractionById(1).getTagIds()).isEqualTo(List.of(1, 2));
     }
 
     //Need getAllTagsTest
+    @Test
+    void shouldGetAllTags(){
+        List<Tag> foundTags = repository.getAllTags();
+        assertThat(foundTags).hasSize(5);
+        assertThat(foundTags.getFirst().getName()).isEqualTo("Cafe");
+        assertThat(foundTags.getFirst().getId()).isEqualTo(1);
+    }
 
     //Need createAttractionTest
 
