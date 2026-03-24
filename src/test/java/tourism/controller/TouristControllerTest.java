@@ -9,7 +9,6 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import tourism.model.City;
-import tourism.model.Tag;
 import tourism.model.TouristAttraction;
 import tourism.service.TouristService;
 
