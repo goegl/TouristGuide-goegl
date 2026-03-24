@@ -16,5 +16,5 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Run Maven tests with debug
-        run: mvn test -X
+      - name: test
+        run: mvn clean test
