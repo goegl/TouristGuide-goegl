@@ -55,7 +55,7 @@ public class TouristRepository {
     }
 
     public List<TouristAttraction> getAllAttractions() {
-        String sql = "SELECT * FROM attraction";
+        String sql = "SELECT * FROM attraction ORDER BY attraction_id";
 
         return jdbcTemplate.query(sql, attractionRowMapper);
 
