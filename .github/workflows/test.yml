@@ -2,20 +2,36 @@ name: Test
 
 on:
   push:
+    branches:
+      - main
   pull_request:
 
 jobs:
-  test:
-
+  build-and-test:
     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-    
-    - name: run-tests
-      run: mvn clean test
+    env:
+      DEV_DATABASE_URL: "jdbc:h2:mem:testdb"
+      DEV_USERNAME: "sa"
+      DEV_PASSWORD: ""
 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build and run tests
+        run: mvn --batch-mode --update-snapshots test
