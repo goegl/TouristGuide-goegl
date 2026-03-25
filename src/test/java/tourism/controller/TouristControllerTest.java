@@ -94,7 +94,7 @@ class TouristControllerTest {
                 .param("city_id", "1")
                 .param("tagIds", "1","2"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/attractions"));
+                .andExpect(view().name("redirect:/attractions/confirm-save"));
 
         ArgumentCaptor<TouristAttraction> captor = ArgumentCaptor.forClass(TouristAttraction.class);
         verify(service).createAttraction(captor.capture());
@@ -110,7 +110,7 @@ class TouristControllerTest {
     void shouldDeleteAttraction() throws Exception {
         mockMvc.perform(get("/attractions/delete/3"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/attractions"));
+                .andExpect(view().name("redirect:/attractions/confirm-delete"));
 
         verify(service).deleteAttraction(3);
     }
@@ -151,7 +151,7 @@ class TouristControllerTest {
                         .param("city_id", "3")
                         .param("tagIds", "1", "2"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/attractions"));
+                .andExpect(view().name("redirect:/attractions/confirm-update"));
 
         verify(service).updateAttraction((any(TouristAttraction.class)));
 
