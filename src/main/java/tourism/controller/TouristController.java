@@ -3,6 +3,7 @@ package tourism.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tourism.model.TouristAttraction;
 import tourism.service.TouristService;
 
@@ -51,9 +52,15 @@ public class TouristController {
 
 
     @PostMapping("/save")
-    public String saveAttraction(@ModelAttribute TouristAttraction attraction) {
-        service.createAttraction(attraction);
-        return "redirect:/attractions";
+    public String saveAttraction(@ModelAttribute TouristAttraction attraction, RedirectAttributes redirectAttributes) {
+        TouristAttraction savedAttraction = service.createAttraction(attraction);
+        redirectAttributes.addFlashAttribute("attraction", savedAttraction);
+        return "redirect:/attractions/confirm-save";
+    }
+
+    @GetMapping("/confirm-save")
+    public String confirmSavedAttraction(){
+        return "confirmation-templates/attraction-confirm-save";
     }
 
 
