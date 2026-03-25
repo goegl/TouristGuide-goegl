@@ -5,4 +5,4 @@
 ![TouristGuide3Model](TouristGuide3model.jpeg)
 
 # Qodana
-![Code Review](docs/images/CodeReview.png)
+![Code Review](/images/CodeReview.png)
