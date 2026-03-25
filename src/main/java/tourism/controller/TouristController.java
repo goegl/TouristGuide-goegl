@@ -88,9 +88,14 @@ public class TouristController {
     }
 
     @PostMapping("/update")
-    public String updateAttraction(@ModelAttribute TouristAttraction attraction) {
-        service.updateAttraction(attraction);
-        return "redirect:/attractions";
+    public String updateAttraction(@ModelAttribute TouristAttraction attraction, RedirectAttributes redirectAttributes) {
+        TouristAttraction editedAttraction = service.updateAttraction(attraction);
+        redirectAttributes.addFlashAttribute("updatedAttraction", editedAttraction);
+        return "redirect:/attractions/confirm-update";
+    }
+    @GetMapping("/confirm-update")
+    public String confirmUpdatedAttraction() {
+        return "confirmation-templates/attraction-confirm-update";
     }
 
 

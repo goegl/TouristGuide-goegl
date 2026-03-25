@@ -6,6 +6,7 @@ import tourism.model.Tag;
 import tourism.model.TouristAttraction;
 import tourism.repository.TouristRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,8 +23,21 @@ public class TouristService {
     }
 
 
-    public void updateAttraction(TouristAttraction attraction) {
+    public TouristAttraction updateAttraction(TouristAttraction attraction) {
         repository.updateAttraction(attraction);
+        for (City city : getAllCities()){
+            if (city.getId() == attraction.getCity_id()){
+                attraction.setCity(city);
+            }
+        }
+        List<Tag> tempTagList = new ArrayList<>();
+        for(Tag tag : getAllTags()){
+            if(attraction.getTagIds().contains(tag.getId())){
+                tempTagList.add(tag);
+            }
+        }
+        attraction.setTagList(tempTagList);
+        return attraction;
     }
 
 
