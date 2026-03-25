@@ -1,1 +1,1 @@
-# This is a placeholder for the new docs folder contents.
+# E/r model og relationel model.
