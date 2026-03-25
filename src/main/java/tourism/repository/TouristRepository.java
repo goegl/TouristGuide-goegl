@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import tourism.model.City;
 import tourism.model.Tag;
 import tourism.model.TouristAttraction;
-
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -89,7 +88,7 @@ public class TouristRepository {
         String sql = """
                 SELECT tag.tag_id, tag.name
                 FROM tag 
-                JOIN attraction_tag 
+                JOIN attraction_tag
                     ON tag.tag_id = attraction_tag.tag_id
                 WHERE attraction_tag.attraction_id = ?
                 """;
