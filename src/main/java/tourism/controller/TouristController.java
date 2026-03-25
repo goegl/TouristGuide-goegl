@@ -59,17 +59,22 @@ public class TouristController {
     }
 
     @GetMapping("/confirm-save")
-    public String confirmSavedAttraction(){
+    public String confirmSavedAttraction() {
         return "confirmation-templates/attraction-confirm-save";
     }
 
 
     @GetMapping("/delete/{attractionId}")
-    public String deleteAttraction(@PathVariable int attractionId) {
-        service.deleteAttraction(attractionId);
-        return "redirect:/attractions";
+    public String deleteAttraction(@PathVariable int attractionId, RedirectAttributes redirectAttributes) {
+        TouristAttraction deletedAttraction = service.deleteAttraction(attractionId);
+        redirectAttributes.addFlashAttribute("attraction", deletedAttraction);
+        return "redirect:/attractions/confirm-delete";
     }
 
+    @GetMapping("/confirm-delete")
+    public String confirmDeletedAttraction() {
+        return "confirmation-templates/attraction-confirm-delete";
+    }
 
     @GetMapping("/{attractionId}/edit")
     public String showEditForm(@PathVariable int attractionId, Model model) {
