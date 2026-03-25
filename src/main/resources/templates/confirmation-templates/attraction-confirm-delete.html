@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="dk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Attraktion Slettet</title>
+  <link rel="stylesheet" th:href="@{/main.css}">
+  <link rel="icon" type="image/png" th:href="@{/images/favicon_test.png}">
+</head>
+<body>
+<div th:replace="fragments/header :: header">...</div>
+<h2>Følgende Attraktion Er Blevet Slettet</h2>
+<section>
+  <table>
+    <tr>
+      <th>Navn</th>
+      <th>Beskrivelse</th>
+      <th>By</th>
+      <th>Kategorier</th>
+
+    </tr>
+    <tr>
+      <td>
+        <h3 th:text="${attraction.name}"></h3>
+      </td>
+      <td th:text="${attraction.description}"></td>
+      <td th:text="${attraction.city.name}"></td>
+      <td>
+        <ul>
+          <li th:each="tag : ${attraction.tagList}" th:text="${tag.name}"></li>
+        </ul>
+      </td>
+
+
+    </tr>
+
+  </table>
+</section>
+</body>
+</html>

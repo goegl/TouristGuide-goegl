@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="dk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Attraktion Opdateret</title>
+  <link rel="stylesheet" th:href="@{/main.css}">
+  <link rel="icon" type="image/png" th:href="@{/images/favicon_test.png}">
+</head>
+<body>
+<div th:replace="fragments/header :: header">...</div>
+<h2>Følgende Attraktion Er Blevet Opdateret til</h2>
+<section>
+  <table>
+    <tr>
+      <th>Navn</th>
+      <th>Beskrivelse</th>
+      <th>By</th>
+      <th>Kategorier</th>
+
+    </tr>
+    <tr>
+      <td>
+        <h3 th:text="${updatedAttraction.name}"></h3>
+      </td>
+      <td th:text="${updatedAttraction.description}"></td>
+      <td th:text="${updatedAttraction.city.name}"></td>
+      <td>
+        <ul>
+          <li th:each="tag : ${updatedAttraction.tagList}" th:text="${tag.name}"></li>
+        </ul>
+      </td>
+
+
+    </tr>
+  </table>
+</section>
+</body>
+</html>

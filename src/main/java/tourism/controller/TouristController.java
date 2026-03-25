@@ -3,6 +3,7 @@ package tourism.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tourism.model.TouristAttraction;
 import tourism.service.TouristService;
 
@@ -51,18 +52,29 @@ public class TouristController {
 
 
     @PostMapping("/save")
-    public String saveAttraction(@ModelAttribute TouristAttraction attraction) {
-        service.createAttraction(attraction);
-        return "redirect:/attractions";
+    public String saveAttraction(@ModelAttribute TouristAttraction attraction, RedirectAttributes redirectAttributes) {
+        TouristAttraction savedAttraction = service.createAttraction(attraction);
+        redirectAttributes.addFlashAttribute("attraction", savedAttraction);
+        return "redirect:/attractions/confirm-save";
+    }
+
+    @GetMapping("/confirm-save")
+    public String confirmSavedAttraction() {
+        return "confirmation-templates/attraction-confirm-save";
     }
 
 
     @GetMapping("/delete/{attractionId}")
-    public String deleteAttraction(@PathVariable int attractionId) {
-        service.deleteAttraction(attractionId);
-        return "redirect:/attractions";
+    public String deleteAttraction(@PathVariable int attractionId, RedirectAttributes redirectAttributes) {
+        TouristAttraction deletedAttraction = service.deleteAttraction(attractionId);
+        redirectAttributes.addFlashAttribute("attraction", deletedAttraction);
+        return "redirect:/attractions/confirm-delete";
     }
 
+    @GetMapping("/confirm-delete")
+    public String confirmDeletedAttraction() {
+        return "confirmation-templates/attraction-confirm-delete";
+    }
 
     @GetMapping("/{attractionId}/edit")
     public String showEditForm(@PathVariable int attractionId, Model model) {
@@ -76,9 +88,14 @@ public class TouristController {
     }
 
     @PostMapping("/update")
-    public String updateAttraction(@ModelAttribute TouristAttraction attraction) {
-        service.updateAttraction(attraction);
-        return "redirect:/attractions";
+    public String updateAttraction(@ModelAttribute TouristAttraction attraction, RedirectAttributes redirectAttributes) {
+        TouristAttraction editedAttraction = service.updateAttraction(attraction);
+        redirectAttributes.addFlashAttribute("updatedAttraction", editedAttraction);
+        return "redirect:/attractions/confirm-update";
+    }
+    @GetMapping("/confirm-update")
+    public String confirmUpdatedAttraction() {
+        return "confirmation-templates/attraction-confirm-update";
     }
 
 
